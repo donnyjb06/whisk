@@ -1,6 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-
+@custom-variant dark (&:is(.dark *));
 @theme inline {
 	--radius-sm: calc(var(--radius) - 4px);
 	--radius-md: calc(var(--radius) - 2px);
@@ -14,6 +14,7 @@
 	--color-popover-foreground: var(--popover-foreground);
 	--color-primary: var(--primary);
 	--color-primary-foreground: var(--primary-foreground);
+	--color-primary-emphasis: var(--primary-emphasis);
 	--color-secondary: var(--secondary);
 	--color-secondary-foreground: var(--secondary-foreground);
 	--color-muted: var(--muted);
@@ -141,5 +142,12 @@
 	}
 	body {
 		@apply bg-background text-foreground;
+	}
+	html, body, #root {
+		@apply min-h-screen;
+	}
+
+	#root {
+		@apply max-w-[1440px] min-w-[320px] mx-auto; 
 	}
 }
