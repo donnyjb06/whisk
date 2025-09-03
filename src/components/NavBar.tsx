@@ -35,7 +35,7 @@ const NavBar = () => {
 				<NavbarLogo isMobileView={false}/>
 				<NavItems items={navItems} />
 				<div className="flex items-center gap-4">
-					<NavbarButton variant="primary" className="bg-primary text-primary-foreground hover:bg-primary-emphasis">Login</NavbarButton>
+					<NavbarButton variant="primary" className="bg-primary text-primary-foreground hover:bg-primary-emphasis buttontext">Login</NavbarButton>
 					<ModeToggle />
 				</div>
 			</NavBody>
@@ -59,7 +59,7 @@ const NavBar = () => {
 							key={`mobile-link-${idx}`}
 							href={item.link}
 							onClick={() => setIsMobileMenuOpen(false)}
-							className="relative text-neutral-600 dark:text-neutral-300"
+							className="relative text-neutral-600 dark:text-neutral-300 buttontext"
 						>
 							<span className="block">{item.name}</span>
 						</a>
@@ -68,7 +68,7 @@ const NavBar = () => {
 						<NavbarButton
 							onClick={() => setIsMobileMenuOpen(false)}
 							variant="primary"
-							className="w-full text-background"
+							className="w-full text-background button-text"
 						>
 							Login
 						</NavbarButton>

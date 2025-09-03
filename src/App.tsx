@@ -1,15 +1,27 @@
-import { Outlet } from "react-router";
+import { Outlet, useLocation } from "react-router";
 import NavBar from "./components/NavBar";
 import ThemeProvider from "./context/Theme/Theme.provider";
 import ModeToggle from "./components/ModeToggle";
+import { AnimatePresence, motion } from "motion/react";
 
 function App() {
+	const location = useLocation();
+
 	return (
 		<>
 			<ThemeProvider>
-				<ModeToggle className="lg:hidden"/>
+				<ModeToggle className="lg:hidden" />
 				<NavBar />
-				<Outlet />
+				<AnimatePresence mode="wait">
+					<motion.div
+						key={location.pathname}
+						initial={{opacity: 0, y: 10}}
+						animate={{opacity: 1, y: 0}}
+						exit={{opacity: 0, y: -10}}
+						transition={{duration: 0.3}}>
+						<Outlet />
+					</motion.div>
+				</AnimatePresence>
 			</ThemeProvider>
 		</>
 	);
