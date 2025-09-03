@@ -1,11 +1,14 @@
 import { Outlet } from "react-router";
 import NavBar from "./components/NavBar";
+import ThemeProvider from "./context/Theme/Theme.provider";
 
 function App() {
 	return (
 		<>
-    <NavBar />	
-		<Outlet />
+			<ThemeProvider>
+				<NavBar />
+				<Outlet />
+			</ThemeProvider>
 		</>
 	);
 }
