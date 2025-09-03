@@ -3,12 +3,18 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import { createBrowserRouter, type DataRouter } from "react-router";
 import { RouterProvider } from "react-router/dom";
-import App from "./App.tsx";
+import Layout from "./Layout.tsx";
 
 const router: DataRouter = createBrowserRouter([
 	{
 		path: "/",
-		element: <App />,
+		element: <Layout />,
+		children: [
+			{
+				index: true,
+				Component: 
+			}
+		]
 	},
 ]);
 

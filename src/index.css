@@ -158,6 +158,6 @@
 	}
 
 	#root {
-		@apply max-w-[1440px] min-w-[320px] mx-auto relative; 
+		@apply max-w-[1440px] min-w-[320px] mx-auto relative flex flex-col; 
 	}
 }

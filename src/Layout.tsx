@@ -4,7 +4,7 @@ import ThemeProvider from "./context/Theme/Theme.provider";
 import ModeToggle from "./components/ModeToggle";
 import { AnimatePresence, motion } from "motion/react";
 
-function App() {
+function Layout() {
 	const location = useLocation();
 
 	return (
@@ -18,7 +18,8 @@ function App() {
 						initial={{opacity: 0, y: 10}}
 						animate={{opacity: 1, y: 0}}
 						exit={{opacity: 0, y: -10}}
-						transition={{duration: 0.3}}>
+						transition={{duration: 0.3}}
+						className="flex-1">
 						<Outlet />
 					</motion.div>
 				</AnimatePresence>
@@ -27,4 +28,4 @@ function App() {
 	);
 }
 
-export default App;
+export default Layout;
