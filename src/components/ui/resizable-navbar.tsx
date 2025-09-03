@@ -52,6 +52,10 @@ interface MobileNavMenuProps {
 	onClose: () => void;
 }
 
+interface NavBarLogoProps {
+	isMobileView: boolean
+}
+
 export const Navbar = ({ children, className }: NavbarProps) => {
 	const ref = useRef<HTMLDivElement>(null);
 	const { scrollY } = useScroll({
@@ -238,15 +242,30 @@ export const MobileNavToggle = ({
 	);
 };
 
-export const NavbarLogo = () => {
+export const NavbarLogo = ({isMobileView}: NavBarLogoProps) => {
 	const { theme } = useTheme();
+	let src;
+
+	if (isMobileView) {
+		if (theme === "dark") {
+			src = lightModeLogo;
+		} else {
+			src = darkModeLogo;
+		}
+	} else {
+		if (theme === "dark") {
+			src = darkModeLogo;
+		} else {
+			src = lightModeLogo
+		}
+	}
 	return (
 		<a
 			href="#"
 			className="relative z-20 mr-4 flex items-center space-x-2 px-2 py-1 text-sm font-normal text-black"
 		>
 			<img
-				src={theme === "dark" ? darkModeLogo : lightModeLogo}
+				src={src}
 				alt="logo"
 				width={50}
 				height={50}
