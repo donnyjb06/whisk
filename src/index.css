@@ -40,7 +40,7 @@
 	--color-sidebar-ring: var(--sidebar-ring);
   --font-heading: "Newsreader", ui-serif, Georgia, "Times New Roman", serif;
   --font-body: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Arial, sans-serif;
-  --text-body: var(--font-size-body)
+  --text-body: var(--font-size-body);
   --text-button: var(--font-size-button);
   --text-h6: var(--font-size-h6);
   --text-h5: var(--font-size-h5);
@@ -136,12 +136,22 @@
 	--sidebar-ring: oklch(0.556 0 0);
 }
 
+@utility heading1 { @apply text-h1 font-heading font-bold }
+@utility heading2 { @apply text-h2 font-heading font-semibold}
+@utility heading3 { @apply text-h3 font-heading font-semibold }
+@utility heading4 { @apply text-h4 font-heading font-medium}
+@utility heading5 { @apply text-h5 font-heading font-medium }
+@utility heading6 { @apply text-h6 font-heading font-medium }
+@utility bodytext { @apply text-body font-body text-foreground; }
+@utility buttontext { @apply text-button font-body font-medium tracking-wide; }
+
+
 @layer base {
 	* {
 		@apply border-border outline-ring/50;
 	}
 	body {
-		@apply bg-background text-foreground;
+		@apply bg-background text-foreground font-body;
 	}
 	html, body, #root {
 		@apply min-h-screen;
