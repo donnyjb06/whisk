@@ -34,7 +34,7 @@ const NavBar = () => {
 				<NavbarLogo />
 				<NavItems items={navItems} />
 				<div className="flex items-center gap-4">
-					<NavbarButton variant="secondary">Login</NavbarButton>
+					<NavbarButton variant="primary" className="bg-primary text-primary-foreground hover:bg-primary-emphasis">Login</NavbarButton>
 				</div>
 			</NavBody>
 

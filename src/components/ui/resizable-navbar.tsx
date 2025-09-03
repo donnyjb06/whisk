@@ -7,9 +7,12 @@ import {
 	useScroll,
 	useMotionValueEvent,
 } from "motion/react";
-import lightModeLogo from "@/assets/logo-black.svg";
+import darkModeLogo from "@/assets/logo-black.svg";
+import lightModeLogo from "@/assets/logo-white.svg";
 
 import React, { useRef, useState } from "react";
+import { useTheme } from "@/hooks/useTheme";
+import { useLocation } from "react-router";
 
 interface NavbarProps {
 	children: React.ReactNode;
@@ -103,7 +106,7 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
 				minWidth: "800px",
 			}}
 			className={cn(
-				"relative z-[60] mx-auto hidden w-full max-w-[90%] flex-row items-center justify-between self-start rounded-full bg-transparent px-4 py-2 lg:flex dark:bg-transparent",
+				"relative z-[60] mx-auto hidden w-full max-w-[90%] flex-row items-center justify-between self-start rounded-full bg-transparent px-4 py-2 lg:flex ",
 				visible && "bg-white/80 dark:bg-neutral-950/80",
 				className
 			)}
@@ -115,6 +118,7 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
 
 export const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
 	const [hovered, setHovered] = useState<number | null>(null);
+	const location = useLocation().pathname;
 
 	return (
 		<motion.div
@@ -128,15 +132,17 @@ export const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
 				<a
 					onMouseEnter={() => setHovered(idx)}
 					onClick={onItemClick}
-					className="relative px-4 py-2 text-background hover:text-primary-foreground duration-500 "
+					className={`relative px-4 py-2 text-${
+						hovered === idx || (hovered === null && location === item.link)
+							? "primary-foreground"
+							: "background"
+					} hover:text-primary-foreground duration-500 `}
 					key={`link-${idx}`}
 					href={item.link}
 				>
-					{hovered === idx && (
+					{(hovered === idx ||
+						(hovered === null && location === item.link)) && (
 						<motion.div
-							initial={{opacity: 0}}
-							animate={{opacity: 1}}
-							transition={{duration: 0.3}}
 							layoutId="hovered"
 							className="absolute inset-0 h-full w-full rounded-full bg-primary-emphasis"
 						/>
@@ -233,12 +239,18 @@ export const MobileNavToggle = ({
 };
 
 export const NavbarLogo = () => {
+	const { theme } = useTheme();
 	return (
 		<a
 			href="#"
 			className="relative z-20 mr-4 flex items-center space-x-2 px-2 py-1 text-sm font-normal text-black"
 		>
-			<img src={lightModeLogo} alt="logo" width={50} height={50} />
+			<img
+				src={theme === "dark" ? darkModeLogo : lightModeLogo}
+				alt="logo"
+				width={50}
+				height={50}
+			/>
 		</a>
 	);
 };
@@ -261,7 +273,7 @@ export const NavbarButton = ({
 	| React.ComponentPropsWithoutRef<"button">
 )) => {
 	const baseStyles =
-		"px-4 py-2 rounded-md bg-white button bg-white text-black text-sm font-bold relative cursor-pointer hover:-translate-y-0.5 transition duration-200 inline-block text-center";
+		"px-4 py-2 rounded-md bg-white button bg-foreground text-black text-sm font-bold relative cursor-pointer hover:-translate-y-0.5 transition duration-200 inline-block text-center";
 
 	const variantStyles = {
 		primary:
