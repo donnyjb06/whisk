@@ -68,7 +68,7 @@ const NavBar = () => {
 						<NavbarButton
 							onClick={() => setIsMobileMenuOpen(false)}
 							variant="primary"
-							className="w-full dark:text-background"
+							className="w-full text-background"
 						>
 							Login
 						</NavbarButton>
