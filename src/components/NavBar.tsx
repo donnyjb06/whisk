@@ -10,6 +10,7 @@ import {
 	MobileNavToggle,
 	MobileNavMenu,
 } from "./ui/resizable-navbar";
+import ModeToggle from "./ModeToggle";
 
 const NavBar = () => {
 	const navItems = [
@@ -31,17 +32,18 @@ const NavBar = () => {
 		<Navbar>
 			{/* Desktop Navigation */}
 			<NavBody className="bg-foreground">
-				<NavbarLogo />
+				<NavbarLogo isMobileView={false}/>
 				<NavItems items={navItems} />
 				<div className="flex items-center gap-4">
 					<NavbarButton variant="primary" className="bg-primary text-primary-foreground hover:bg-primary-emphasis">Login</NavbarButton>
+					<ModeToggle />
 				</div>
 			</NavBody>
 
 			{/* Mobile Navigation */}
 			<MobileNav>
 				<MobileNavHeader>
-					<NavbarLogo />
+					<NavbarLogo isMobileView={ true } />
 					<MobileNavToggle
 						isOpen={isMobileMenuOpen}
 						onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -66,16 +68,9 @@ const NavBar = () => {
 						<NavbarButton
 							onClick={() => setIsMobileMenuOpen(false)}
 							variant="primary"
-							className="w-full"
+							className="w-full dark:text-background"
 						>
 							Login
-						</NavbarButton>
-						<NavbarButton
-							onClick={() => setIsMobileMenuOpen(false)}
-							variant="primary"
-							className="w-full"
-						>
-							Book a call
 						</NavbarButton>
 					</div>
 				</MobileNavMenu>
