@@ -7,8 +7,8 @@ import {
 	useScroll,
 	useMotionValueEvent,
 } from "motion/react";
-import darkModeLogo from "@/assets/logo-black.svg";
-import lightModeLogo from "@/assets/logo-white.svg";
+import darkModeLogo from "@/assets/logo-black.png";
+import lightModeLogo from "@/assets/logo-white.png";
 
 import React, { useRef, useState } from "react";
 import { useTheme } from "@/hooks/useTheme";
