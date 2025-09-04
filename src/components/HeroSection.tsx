@@ -14,7 +14,7 @@ export default function HeroSection() {
 									Ingredients in. Recipes out.
 								</h1>
 								<p className="text-muted my-8 max-w-2xl text-balance bodytext ">
-									No more wasted food — enter what you’ve got, and get a meal
+									No more wasted food — enter what you've got, and get a meal
 									plan in seconds.
 								</p>
 
