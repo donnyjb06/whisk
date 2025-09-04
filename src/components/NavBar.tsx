@@ -32,10 +32,15 @@ const NavBar = () => {
 		<Navbar>
 			{/* Desktop Navigation */}
 			<NavBody className="bg-foreground">
-				<NavbarLogo isMobileView={false}/>
+				<NavbarLogo isMobileView={false} />
 				<NavItems items={navItems} />
 				<div className="flex items-center gap-4">
-					<NavbarButton variant="primary" className="bg-primary text-primary-foreground hover:bg-primary-emphasis buttontext">Login</NavbarButton>
+					<NavbarButton
+						variant="primary"
+						className="bg-primary text-primary-foreground hover:bg-primary-emphasis buttontext"
+					>
+						Login
+					</NavbarButton>
 					<ModeToggle />
 				</div>
 			</NavBody>
@@ -43,7 +48,7 @@ const NavBar = () => {
 			{/* Mobile Navigation */}
 			<MobileNav>
 				<MobileNavHeader>
-					<NavbarLogo isMobileView={ true } />
+					<NavbarLogo isMobileView={true} />
 					<MobileNavToggle
 						isOpen={isMobileMenuOpen}
 						onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
