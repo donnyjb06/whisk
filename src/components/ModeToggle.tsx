@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/Button";
-import { Moon, Sun } from "lucide-react";
 import { useTheme } from "@/hooks/useTheme";
 import { cn } from "@/lib/utils";
+import {FaSun, FaMoon} from "react-icons/fa";
 
 interface ModeToggleProps {
 	className?: string;
@@ -19,8 +19,8 @@ export function ModeToggle({ className }: ModeToggleProps) {
 				className
 			)}
 		>
-			<Sun className="h-[1.2rem] w-[1.2rem] scale-100 text-foreground rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
-			<Moon className="absolute h-[1.2rem] text-foreground w-[1.2rem] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" />
+			<FaSun className="h-[1.2rem] w-[1.2rem] scale-100 text-foreground rotate-0 transition-all dark:scale-0 dark:-rotate-90"/>
+			<FaMoon className="absolute h-[1.2rem] w-[1.2rem] text-foreground scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" />
 		</Button>
 	);
 }
