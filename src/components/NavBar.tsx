@@ -9,7 +9,7 @@ import {
 	MobileNavHeader,
 	MobileNavToggle,
 	MobileNavMenu,
-} from "./ui/resizable-navbar";
+} from "./ui/ResizableNavBar";
 import ModeToggle from "./ModeToggle";
 
 const NavBar = () => {

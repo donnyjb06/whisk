@@ -4,6 +4,7 @@ import "./index.css";
 import { createBrowserRouter, type DataRouter } from "react-router";
 import { RouterProvider } from "react-router/dom";
 import Layout from "./Layout.tsx";
+import LandingPage from "./pages/LandingPage.tsx";
 
 const router: DataRouter = createBrowserRouter([
 	{
@@ -12,7 +13,7 @@ const router: DataRouter = createBrowserRouter([
 		children: [
 			{
 				index: true,
-				Component: 
+				element: <LandingPage /> 
 			}
 		]
 	},

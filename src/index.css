@@ -38,17 +38,18 @@
 	--color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
 	--color-sidebar-border: var(--sidebar-border);
 	--color-sidebar-ring: var(--sidebar-ring);
-  --font-heading: "Newsreader", ui-serif, Georgia, "Times New Roman", serif;
-  --font-body: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Arial, sans-serif;
-  --text-body: var(--font-size-body);
-  --text-button: var(--font-size-button);
-  --text-h6: var(--font-size-h6);
-  --text-h5: var(--font-size-h5);
-  --text-h4: var(--font-size-h4);
-  --text-h3: var(--font-size-h3);
-  --text-h2: var(--font-size-h2);
-  --text-h1: var(--font-size-h1);
-  
+	--font-heading: "Newsreader", ui-serif, Georgia, "Times New Roman", serif;
+	--font-body: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Arial,
+		sans-serif;
+	--text-body: var(--font-size-body);
+	--text-button: var(--font-size-button);
+	--text-h6: var(--font-size-h6);
+	--text-h5: var(--font-size-h5);
+	--text-h4: var(--font-size-h4);
+	--text-h3: var(--font-size-h3);
+	--text-h2: var(--font-size-h2);
+	--text-h1: var(--font-size-h1);
+
 	--leading-body: var(--line-height-body);
 	--leading-heading: var(--line-height-heading);
 	--leading-button: var(--line-height-button);
@@ -88,14 +89,14 @@
 	--sidebar-accent-foreground: oklch(0.205 0 0);
 	--sidebar-border: oklch(0.922 0 0);
 	--sidebar-ring: oklch(0.708 0 0);
-	--font-size-body: clamp(1rem, 0.9rem + 0.3vw, 1.125rem);
-	--font-size-button: clamp(0.75rem, 0.7rem + 0.2vw, 0.875rem);
-	--font-size-h6: clamp(1rem, 0.9rem + 0.25vw, 1.125rem);
-	--font-size-h5: clamp(1.333rem, 1.2rem + 0.4vw, 1.5rem);
-	--font-size-h4: clamp(1.777rem, 1.6rem + 0.5vw, 2rem);
-	--font-size-h3: clamp(2.369rem, 2.1rem + 0.7vw, 2.666rem);
-	--font-size-h2: clamp(3.157rem, 2.8rem + 1vw, 3.555rem);
-	--font-size-h1: clamp(4.209rem, 3.8rem + 1.3vw, 4.74rem);
+	--font-size-body: clamp(0.9rem, 0.8rem + 0.8vw, 1.125rem);
+	--font-size-button: clamp(0.7rem, 0.65rem + 0.6vw, 0.875rem);
+	--font-size-h6: clamp(0.9rem, 0.8rem + 0.8vw, 1.125rem);
+	--font-size-h5: clamp(1.1rem, 1rem + 1vw, 1.5rem);
+	--font-size-h4: clamp(1.4rem, 1.2rem + 1.2vw, 2rem);
+	--font-size-h3: clamp(1.8rem, 1.6rem + 1.6vw, 2.666rem);
+	--font-size-h2: clamp(2.2rem, 2rem + 2vw, 3.555rem);
+	--font-size-h1: clamp(2.8rem, 2.4rem + 2.4vw, 4.74rem);
 	--line-height-body: 1.5;
 	--line-height-heading: 1.2;
 	--line-height-button: 1.3;
@@ -136,15 +137,30 @@
 	--sidebar-ring: oklch(0.556 0 0);
 }
 
-@utility heading1 { @apply text-h1 font-heading font-bold }
-@utility heading2 { @apply text-h2 font-heading font-semibold}
-@utility heading3 { @apply text-h3 font-heading font-semibold }
-@utility heading4 { @apply text-h4 font-heading font-medium}
-@utility heading5 { @apply text-h5 font-heading font-medium }
-@utility heading6 { @apply text-h6 font-heading font-medium }
-@utility bodytext { @apply text-body font-body text-foreground; }
-@utility buttontext { @apply text-button font-body font-medium tracking-wide; }
-
+@utility heading1 {
+	@apply text-h1 font-heading font-bold leading-heading;
+}
+@utility heading2 {
+	@apply text-h2 font-heading font-semibold;
+}
+@utility heading3 {
+	@apply text-h3 font-heading font-semibold;
+}
+@utility heading4 {
+	@apply text-h4 font-heading font-medium;
+}
+@utility heading5 {
+	@apply text-h5 font-heading font-medium;
+}
+@utility heading6 {
+	@apply text-h6 font-heading font-medium;
+}
+@utility bodytext {
+	@apply text-body font-body text-foreground leading-button;
+}
+@utility buttontext {
+	@apply text-button font-body font-medium tracking-wide leading-button;
+}
 
 @layer base {
 	* {
@@ -153,11 +169,13 @@
 	body {
 		@apply bg-background text-foreground font-body;
 	}
-	html, body, #root {
+	html,
+	body,
+	#root {
 		@apply min-h-screen;
 	}
 
 	#root {
-		@apply max-w-[1440px] min-w-[320px] mx-auto relative flex flex-col; 
+		@apply max-w-[1440px] min-w-[320px] mx-auto relative flex flex-col overflow-hidden;
 	}
 }
