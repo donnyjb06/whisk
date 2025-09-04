@@ -15,7 +15,7 @@ export function ModeToggle({ className }: ModeToggleProps) {
 			size="icon"
 			onClick={toggleTheme}
 			className={cn(
-				"fixed bottom-4 right-4 lg:bottom-auto lg:right-auto lg:relative z-10 bg-background hover:bg-background/80 dark:bg-background dark:hover:bg-background/80",
+				"fixed bottom-6 right-6 lg:bottom-auto lg:right-auto lg:relative z-10 bg-background hover:bg-background/80 dark:bg-background dark:hover:bg-background/80",
 				className
 			)}
 		>
