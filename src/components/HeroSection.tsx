@@ -13,7 +13,7 @@ export default function HeroSection() {
 								<h1 className="max-w-md text-balance heading1">
 									Ingredients in. Recipes out.
 								</h1>
-								<p className="text-muted my-8 max-w-2xl text-balance text-xl">
+								<p className="text-muted my-8 max-w-2xl text-balance bodytext ">
 									No more wasted food — enter what you’ve got, and get a meal
 									plan in seconds.
 								</p>
@@ -22,11 +22,11 @@ export default function HeroSection() {
 									<Button
 										asChild
 										size="lg"
-										className="pr-4.5 buttontext text-primary-foreground"
+										className="pr-4.5 buttontext text-primary-foreground group hover:bg-primary-emphasis duration-200"
 									>
 										<a href="#link">
 											<span className="text-nowrap">Get Started</span>
-											<ChevronRight className="opacity-50" />
+											<ChevronRight className="opacity-50 group-hover:translate-x-2 duration-200 ease-out" />
 										</a>
 									</Button>
 								</div>
