@@ -4,7 +4,7 @@ import { TagsInput } from "@/components/TagsInput";
 import { Button } from "./ui/Button";
 import { motion } from "motion/react";
 import { getMotionProps } from "@/lib/utils";
-import { TourProvider, TourStep, TourTrigger } from "./guided-tour";
+import { TourProvider, TourStep, TourTrigger } from "./GuidedTour";
 import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
 import { CircleQuestionMark } from "lucide-react";
 
