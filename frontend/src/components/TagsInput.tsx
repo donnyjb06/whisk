@@ -69,6 +69,7 @@ export const TagsInput = React.forwardRef<HTMLDivElement, TagsInputProps>(
         console.log(newVal)
         if (!value.includes(newVal) && value.length < parseMaxItems) {
           onValueChange([...value, newVal]);
+          return
         }
         toast.warning("Ingredient already exists in list!")
       },
