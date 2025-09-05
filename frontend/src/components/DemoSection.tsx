@@ -6,9 +6,13 @@ import { CircleQuestionMark } from "lucide-react";
 import { Button } from "./ui/Button";
 import { useDemo } from "@/hooks/useDemo";
 import { TagsInput } from "./TagsInput";
+import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
 
 const DemoSection = () => {
 	const {
+		allowExtras,
+		setAllowExtras,
 		onTourComplete,
 		handleClick,
 		handleReset,
@@ -49,7 +53,7 @@ const DemoSection = () => {
 						id="show-recipe"
 						title="Get your recipe"
 						content="Congratulations! You now have your recipe!"
-						order={4}
+						order={5}
 						position="right"
 						onStepEnter={addRecipeTourStep}
 					>
@@ -133,12 +137,24 @@ const DemoSection = () => {
 								placeholder="Enter your Ingredients"
 							/>
 						</TourStep>
+						<TourStep
+							id="allow-extras"
+							title="Allow Extra Ingredients"
+							content="If this is checked the AI will include a few common household ingredients not listed in your added ingredients"
+							order={2}
+							position="top"
+						>
+							<Label className="flex items-center buttontext">
+								<Checkbox checked={allowExtras} onCheckedChange={(value) => setAllowExtras(value as boolean)}/>
+									Allow extra ingredients
+							</Label>
+						</TourStep>
 						<div className="flex gap-2 self-stretch flex-col md:flex-row ">
 							<TourStep
 								id="generate-recipe"
 								title="Generate your Recipe"
 								content="After entering your ingredients, click this button to generate your recipe!"
-								order={3}
+								order={4}
 								position="top"
 							>
 								<Button
@@ -152,7 +168,7 @@ const DemoSection = () => {
 								id="reset-ingredients"
 								title="Reset your ingredients"
 								content="Press this button to empty your list of ingredients."
-								order={2}
+								order={3}
 								position="top"
 							>
 								<Button

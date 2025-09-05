@@ -66,7 +66,6 @@ export const TagsInput = React.forwardRef<HTMLDivElement, TagsInputProps>(
     const onValueChangeHandler = React.useCallback(
       (val: string) => {
         const newVal = val.slice(0, 1).toUpperCase().concat("", val.slice(1).toLowerCase());
-        console.log(newVal)
         if (!value.includes(newVal) && value.length < parseMaxItems) {
           onValueChange([...value, newVal]);
           return

@@ -1,3 +1,5 @@
+import type { Recipe } from "@/types/Recipe";
+
 const MOTION_DELAY = 0.15;
 const SLIDE_IN_INITIAL = { x: -10, opacity: 0 };
 const SLIDE_IN_ANIMATE = { x: 0, opacity: 1 };
@@ -9,8 +11,8 @@ The output must strictly follow this structure (no extra text or formatting):
 
 {
   "title": string,
-  "ingredients": [string],
-  "instructions": [string],  // Must be in logical cooking order
+  "ingredients": [string], // Seperate dry and wet ingredients, put the dry ingredients first and wet ingredients after those. Do not include any list styles such as "1. 2. 3." or discs.
+  "instructions": [string],  // Must be in logical cooking order and cannot contain bullet points or any list styles for instance "1. 2. 3." or discs.
   "difficulty": "Easy" | "Medium" | "Hard",
   "cookTime": number // in minutes
 }
@@ -74,4 +76,12 @@ const MOCK_RECIPE: Recipe = {
 	createdAt: "2025-09-04T19:00:00Z",
 };
 
-export { MOTION_DELAY, SLIDE_IN_ANIMATE, SLIDE_IN_INITIAL, HF_INFERENCE_API_KEY, SYSTEM_PROMPT, MINIMUM_INGREDIENTS, MOCK_RECIPE };
+export {
+	MOTION_DELAY,
+	SLIDE_IN_ANIMATE,
+	SLIDE_IN_INITIAL,
+	HF_INFERENCE_API_KEY,
+	SYSTEM_PROMPT,
+	MINIMUM_INGREDIENTS,
+	MOCK_RECIPE,
+};

@@ -6,10 +6,14 @@ import { toast } from "sonner";
 
 export const useDemo = () => {
 	const [ingredients, setIngredients] = useState<string[]>([]);
+	const [allowExtras, setAllowExtras] = useState<boolean>(true);
 	const [recipe, setRecipe] = useState<Recipe | null>(null);
 
-	const tourCompleteIngredients = useRef<string[] | null>(null);
-	const tourCompleteRecipe = useRef<Recipe | null>(null);
+	const tourCompleteSettings = useRef<{
+		recipe: Recipe | null;
+		ingredients: string[];
+		allowExtras: boolean;
+	}>({ ingredients: [], recipe: null, allowExtras: false });
 	const recipeDivRef = useRef<HTMLDivElement>(null);
 
 	const cookTimeHours = recipe && Math.floor((recipe.cookTime as number) / 60);
@@ -24,18 +28,20 @@ export const useDemo = () => {
 	}, [recipe]);
 
 	const onTourComplete = () => {
-		if (!tourCompleteIngredients.current || !tourCompleteRecipe) return;
-		setIngredients(tourCompleteIngredients.current);
-		setRecipe(tourCompleteRecipe.current);
+		if (!tourCompleteSettings.current) return;
+		setIngredients(tourCompleteSettings.current.ingredients);
+		setRecipe(tourCompleteSettings.current.recipe);
+		setAllowExtras(tourCompleteSettings.current.allowExtras);
 	};
 
 	const addRecipeTourStep = () => {
-		tourCompleteRecipe.current = recipe;
+		if (!recipe) return;
+		tourCompleteSettings.current.recipe = recipe;
 		setRecipe(MOCK_RECIPE);
 	};
 
 	const addIngredientsTourStep = () => {
-		tourCompleteIngredients.current = ingredients;
+		tourCompleteSettings.current.ingredients = ingredients;
 		setIngredients([
 			"Spaghetti",
 			"Ground Beef",
@@ -50,15 +56,15 @@ export const useDemo = () => {
 	};
 
 	const handleClick = async () => {
-		if (ingredients.length < MINIMUM_INGREDIENTS) {
-			toast.warning("You must input at least 4 ingredients");
-			return;
-		}
 		if (recipe) {
 			setRecipe(null);
 			return;
 		}
-		const userPrompt = { ingredients };
+		if (ingredients.length < MINIMUM_INGREDIENTS) {
+			toast.warning("You must input at least 4 ingredients");
+			return;
+		}
+		const userPrompt = { ingredients, allowExtras };
 		const temp = await generateRecipe(userPrompt);
 		console.log(temp);
 		setRecipe(MOCK_RECIPE);
@@ -70,6 +76,8 @@ export const useDemo = () => {
 
 	return {
 		recipe,
+		allowExtras,
+		setAllowExtras,
 		ingredients,
 		handleReset,
 		handleClick,
@@ -79,6 +87,6 @@ export const useDemo = () => {
 		addRecipeTourStep,
 		cookTimeHours,
 		cookTimeMinutes,
-		recipeDivRef
+		recipeDivRef,
 	};
 };
