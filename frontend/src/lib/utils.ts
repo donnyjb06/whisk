@@ -1,5 +1,6 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
+import { MOTION_DELAY, SLIDE_IN_ANIMATE, SLIDE_IN_INITIAL } from "./constants";
 
 function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs));
@@ -15,4 +16,12 @@ const getInitialTheme = () => {
 	return prefersDarkMode ? "dark" : "light";
 };
 
-export { cn, getInitialTheme };
+const getMotionProps = (delayMultiplier = 0) => {
+	return {
+		initial: SLIDE_IN_INITIAL,
+		animate: SLIDE_IN_ANIMATE,
+		transition: { duration: 0.3, delay: delayMultiplier * MOTION_DELAY },
+	};
+};
+
+export { cn, getInitialTheme, getMotionProps };
