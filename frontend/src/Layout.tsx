@@ -3,6 +3,7 @@ import NavBar from "./components/NavBar";
 import ThemeProvider from "./context/Theme/Theme.provider";
 import ModeToggle from "./components/ModeToggle";
 import { AnimatePresence, motion } from "motion/react";
+import { Toaster } from "./components/ui/sonner";
 
 function Layout() {
 	const location = useLocation();
@@ -10,6 +11,7 @@ function Layout() {
 	return (
 		<>
 			<ThemeProvider>
+				<Toaster richColors position="bottom-left"/>
 				<ModeToggle className="lg:hidden" />
 				<NavBar />
 				<AnimatePresence mode="wait">

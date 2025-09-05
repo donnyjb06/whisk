@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { X as RemoveIcon } from "lucide-react";
 import React from "react";
+import { toast } from "sonner";
  
 /**
  * used for identifying the split char and use will pasting
@@ -64,9 +65,12 @@ export const TagsInput = React.forwardRef<HTMLDivElement, TagsInputProps>(
  
     const onValueChangeHandler = React.useCallback(
       (val: string) => {
-        if (!value.includes(val) && value.length < parseMaxItems) {
-          onValueChange([...value, val]);
+        const newVal = val.slice(0, 1).toUpperCase().concat("", val.slice(1).toLowerCase());
+        console.log(newVal)
+        if (!value.includes(newVal) && value.length < parseMaxItems) {
+          onValueChange([...value, newVal]);
         }
+        toast.warning("Ingredient already exists in list!")
       },
       [value],
     );
