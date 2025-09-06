@@ -11,4 +11,4 @@ interface Recipe {
 	createdAt?: string;
 }
 
-export type { Recipe };
+export type { Recipe, Difficulty };
