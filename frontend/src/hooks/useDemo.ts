@@ -1,12 +1,13 @@
 import type { Recipe } from "@/types/Recipe";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, type FormEvent } from "react";
 import { MINIMUM_INGREDIENTS, MOCK_RECIPE } from "@/lib/constants";
-import { generateRecipe } from "@/services/huggingface/generateRecipe";
 import { toast } from "sonner";
+import { generateRecipe } from "@/services/gemini/generateRecipe";
 
 export const useDemo = () => {
 	const [ingredients, setIngredients] = useState<string[]>([]);
 	const [allowExtras, setAllowExtras] = useState<boolean>(true);
+	const [difficulty, setDifficulty] = useState<"Easy" | "Medium" | "Hard">("Easy");
 	const [recipe, setRecipe] = useState<Recipe | null>(null);
 
 	const tourCompleteSettings = useRef<{
@@ -55,19 +56,41 @@ export const useDemo = () => {
 		]);
 	};
 
-	const handleClick = async () => {
+	const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+		event.preventDefault();
+
 		if (recipe) {
 			setRecipe(null);
 			return;
 		}
+
 		if (ingredients.length < MINIMUM_INGREDIENTS) {
 			toast.warning("You must input at least 4 ingredients");
 			return;
 		}
-		const userPrompt = { ingredients, allowExtras };
-		const temp = await generateRecipe(userPrompt);
-		console.log(temp);
-		setRecipe(MOCK_RECIPE);
+
+		const userInput = { ingredients, allowExtras, difficulty };
+
+		try {
+			const recipe = await generateRecipe(userInput);
+			console.log(recipe)
+			if (recipe.error) {
+				toast.error(recipe.error);
+				console.error(recipe.raw);
+				return
+			}
+
+			setRecipe(recipe)
+		} catch (error) {
+			if (error instanceof Error) {
+				toast.error("Hugging Face API Call failed");
+				console.error(error.message);
+				return;
+			}
+
+			toast.error("An unknown error has occured. Please try again!");
+			console.error(error);
+		}
 	};
 
 	const handleReset = () => {
@@ -80,8 +103,10 @@ export const useDemo = () => {
 		setAllowExtras,
 		ingredients,
 		handleReset,
-		handleClick,
+		handleSubmit,
 		onTourComplete,
+		difficulty, 
+		setDifficulty,
 		setIngredients,
 		addIngredientsTourStep,
 		addRecipeTourStep,
