@@ -3,7 +3,7 @@ import type { Recipe } from "@/types/Recipe";
 const MOTION_DELAY = 0.15;
 const SLIDE_IN_INITIAL = { x: -10, opacity: 0 };
 const SLIDE_IN_ANIMATE = { x: 0, opacity: 1 };
-const GEMINI_API_KEY = import.meta.env.GEMINI_API_KEY;
+const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
 const MINIMUM_INGREDIENTS = 4;
 
 const SYSTEM_PROMPT: string = `You are an AI recipe generator.  
