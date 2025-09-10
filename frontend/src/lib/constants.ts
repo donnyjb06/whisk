@@ -4,6 +4,7 @@ const MOTION_DELAY = 0.15;
 const SLIDE_IN_INITIAL = { x: -10, opacity: 0 };
 const SLIDE_IN_ANIMATE = { x: 0, opacity: 1 };
 const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
+const SERPAPI_API_KEY = import.meta.env.VITE_SERPAPI_API_KEY;
 const MINIMUM_INGREDIENTS = 4;
 
 const SYSTEM_PROMPT: string = `You are an AI recipe generator.  
@@ -104,4 +105,5 @@ export {
 	SYSTEM_PROMPT,
 	MINIMUM_INGREDIENTS,
 	MOCK_RECIPE,
+	SERPAPI_API_KEY
 };
