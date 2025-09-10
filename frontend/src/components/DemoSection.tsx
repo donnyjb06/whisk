@@ -9,6 +9,7 @@ import { TagsInput } from "./TagsInput";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import DifficultyRadioGroup from "./DifficultyRadioGroup";
+import { LoaderOne } from "./ui/loader";
 
 const DemoSection = () => {
 	const {
@@ -27,6 +28,7 @@ const DemoSection = () => {
 		recipeDivRef,
 		difficulty,
 		setDifficulty,
+		isLoading,
 	} = useDemo();
 
 	return (
@@ -61,10 +63,13 @@ const DemoSection = () => {
 						onStepEnter={addRecipeTourStep}
 					>
 						<div
-							className="flex justify-start items-center border-border border rounded-2xl p-6"
+							className={`flex justify-${
+								isLoading ? "center" : "start"
+							} start items-center border-border border rounded-2xl p-6`}
 							ref={recipeDivRef}
 						>
-							{recipe ? (
+							{isLoading && <LoaderOne />}
+							{recipe && (
 								<div className="flex flex-col gap-12 ">
 									<div className="flex flex-col gap-1">
 										<motion.h4
@@ -118,7 +123,8 @@ const DemoSection = () => {
 										</div>
 									</div>
 								</div>
-							) : (
+							)}
+							{!recipe && !isLoading && (
 								<h3 className="heading4">
 									No recipe yet - add your ingredients and let's get cooking!
 								</h3>

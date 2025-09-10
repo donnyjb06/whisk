@@ -3,11 +3,15 @@ import { useState, useRef, useEffect, type FormEvent } from "react";
 import { MINIMUM_INGREDIENTS, MOCK_RECIPE } from "@/lib/constants";
 import { toast } from "sonner";
 import { generateRecipe } from "@/services/gemini/generateRecipe";
+import { getRecipeImage } from "@/services/googleImages/getRecipeImage";
 
 export const useDemo = () => {
 	const [ingredients, setIngredients] = useState<string[]>([]);
+	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [allowExtras, setAllowExtras] = useState<boolean>(true);
-	const [difficulty, setDifficulty] = useState<"Easy" | "Medium" | "Hard">("Easy");
+	const [difficulty, setDifficulty] = useState<"Easy" | "Medium" | "Hard">(
+		"Easy"
+	);
 	const [recipe, setRecipe] = useState<Recipe | null>(null);
 
 	const tourCompleteSettings = useRef<{
@@ -69,18 +73,20 @@ export const useDemo = () => {
 			return;
 		}
 
+		setIsLoading(true);
+
 		const userInput = { ingredients, allowExtras, difficulty };
 
 		try {
 			const recipe = await generateRecipe(userInput);
-			console.log(recipe)
+			console.log(recipe);
 			if (recipe.error) {
 				toast.error(recipe.error);
 				console.error(recipe.raw);
-				return
+				return;
 			}
 
-			setRecipe(recipe)
+			setRecipe(recipe);
 		} catch (error) {
 			if (error instanceof Error) {
 				toast.error("Hugging Face API Call failed");
@@ -90,6 +96,8 @@ export const useDemo = () => {
 
 			toast.error("An unknown error has occured. Please try again!");
 			console.error(error);
+		} finally {
+			setIsLoading(false);
 		}
 	};
 
@@ -98,6 +106,7 @@ export const useDemo = () => {
 	};
 
 	return {
+		isLoading,
 		recipe,
 		allowExtras,
 		setAllowExtras,
@@ -105,7 +114,7 @@ export const useDemo = () => {
 		handleReset,
 		handleSubmit,
 		onTourComplete,
-		difficulty, 
+		difficulty,
 		setDifficulty,
 		setIngredients,
 		addIngredientsTourStep,
