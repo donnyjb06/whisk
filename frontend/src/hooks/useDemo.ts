@@ -79,7 +79,6 @@ export const useDemo = () => {
 
 		try {
 			const recipe = await generateRecipe(userInput);
-			console.log(recipe);
 			if (recipe.error) {
 				toast.error(recipe.error);
 				console.error(recipe.raw);
