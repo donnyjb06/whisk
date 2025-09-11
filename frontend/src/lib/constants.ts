@@ -1,5 +1,4 @@
 import type { Recipe } from "@/types/Recipe";
-
 const MOTION_DELAY = 0.15;
 const SLIDE_IN_INITIAL = { x: -10, opacity: 0 };
 const SLIDE_IN_ANIMATE = { x: 0, opacity: 1 };
@@ -65,7 +64,7 @@ Return **only** a JSON object, no explanations, no markdown, no prose.
   - Instead, return exactly: {"error": "No valid recipe available."}
 `;
 
-const MOCK_RECIPE: Recipe = {
+const DEMO_RECIPE: Recipe = {
 	_id: "64f1c3a7b9e2a9f5c0d12345",
 	title: "Classic Spaghetti Bolognese",
 	ingredients: [
@@ -104,6 +103,6 @@ export {
 	GEMINI_API_KEY,
 	SYSTEM_PROMPT,
 	MINIMUM_INGREDIENTS,
-	MOCK_RECIPE,
-	SERPAPI_API_KEY
+	DEMO_RECIPE,
+	SERPAPI_API_KEY,
 };

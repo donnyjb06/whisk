@@ -1,6 +1,6 @@
 import type { Recipe } from "@/types/Recipe";
 import { useState, useRef, useEffect, type FormEvent } from "react";
-import { MINIMUM_INGREDIENTS, MOCK_RECIPE } from "@/lib/constants";
+import { MINIMUM_INGREDIENTS, DEMO_RECIPE } from "@/lib/constants";
 import { toast } from "sonner";
 import { generateRecipe } from "@/services/gemini/generateRecipe";
 
@@ -41,7 +41,7 @@ export const useDemo = () => {
 	const addRecipeTourStep = () => {
 		if (!recipe) return;
 		tourCompleteSettings.current.recipe = recipe;
-		setRecipe(MOCK_RECIPE);
+		setRecipe(DEMO_RECIPE);
 	};
 
 	const addIngredientsTourStep = () => {
