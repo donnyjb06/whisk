@@ -3,7 +3,6 @@ import { useState, useRef, useEffect, type FormEvent } from "react";
 import { MINIMUM_INGREDIENTS, MOCK_RECIPE } from "@/lib/constants";
 import { toast } from "sonner";
 import { generateRecipe } from "@/services/gemini/generateRecipe";
-import { getRecipeImage } from "@/services/googleImages/getRecipeImage";
 
 export const useDemo = () => {
 	const [ingredients, setIngredients] = useState<string[]>([]);
