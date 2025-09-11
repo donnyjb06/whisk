@@ -5,6 +5,7 @@ import ModeToggle from "./components/ModeToggle";
 import { AnimatePresence, motion } from "motion/react";
 import { Toaster } from "./components/ui/sonner";
 import ModalProvider from "./context/Modal/Modal.provider";
+import AuthModal from "./components/AuthModal";
 
 function Layout() {
 	const location = useLocation();
@@ -13,6 +14,7 @@ function Layout() {
 		<>
 			<ModalProvider>
 				<ThemeProvider>
+				<AuthModal />
 					<Toaster richColors position="bottom-left" />
 					<ModeToggle className="lg:hidden" />
 					<NavBar />

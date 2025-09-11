@@ -161,6 +161,9 @@
 @utility buttontext {
 	@apply text-button font-body font-medium tracking-wide leading-button;
 }
+@utility formlabel {
+	@apply flex flex-col gap-3 bodytext items-start;
+}
 
 @layer base {
 	* {
@@ -172,7 +175,7 @@
 	html,
 	body,
 	#root {
-		@apply min-h-screen;
+		@apply min-h-screen overflow-x-hidden;
 	}
 
 	#root {
