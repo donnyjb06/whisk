@@ -21,7 +21,7 @@ const Modal = ({ children, name, className }: ModalProps) => {
 		const handleClickOpen = (event: MouseEvent) => {
 			const target = event.target as HTMLDivElement;
 			if (!target) return;
-			if (target.classList.contains("backdrop-blur-sm")) {
+			if (target.classList.contains("backdrop-blur-xs")) {
 				closeModal();
 			}
 		};
@@ -45,15 +45,17 @@ const Modal = ({ children, name, className }: ModalProps) => {
 				<motion.div
 					className="fixed w-screen h-screen flex backdrop-blur-xs z-50 items-center"
 					initial={{ opacity: 0 }}
+					key="backdrop"
 					animate={{ opacity: 1 }}
 					exit={{ opacity: 0 }}
 					transition={{ duration: 0.2 }}
 				>
 					<motion.div
-						initial={{ opacity: 0, scale: 0.75, rotate: 90 }}
+						key="container"
+						initial={{ opacity: 0, scale: 0, rotate: 90 }}
 						animate={{ opacity: 1, scale: 1, rotate: 0 }}
-						transition={{ duration: 0.5, type: "spring", delay: 0.2 }}
-						exit={{ opacity: 0, scale: 0.75, rotate: 90 }}
+						transition={{ duration: 0.5, type: "spring" }}
+						exit={{ opacity: 0, scale: 0, rotate: 90 }}
 						layout
 						className={cn(
 							"relative p-8 max-w-7xl bg-background mx-auto rounded-2xl shadow-2xl flex",
