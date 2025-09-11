@@ -43,7 +43,7 @@ const Modal = ({ children, name, className }: ModalProps) => {
 		<AnimatePresence>
 			{modalIsOpen === name && (
 				<motion.div
-					className="fixed w-screen h-screen flex backdrop-blur-xs z-50 items-center"
+					className="fixed w-screen h-screen flex backdrop-blur-xs z-50 items-center p-6 top-0 left-0"
 					initial={{ opacity: 0 }}
 					key="backdrop"
 					animate={{ opacity: 1 }}
@@ -52,13 +52,13 @@ const Modal = ({ children, name, className }: ModalProps) => {
 				>
 					<motion.div
 						key="container"
-						initial={{ opacity: 0, scale: 0, rotate: 90 }}
+						initial={{ opacity: 0, scale: 0.5, rotate: 90 }}
 						animate={{ opacity: 1, scale: 1, rotate: 0 }}
 						transition={{ duration: 0.5, type: "spring" }}
-						exit={{ opacity: 0, scale: 0, rotate: 90 }}
+						exit={{ opacity: 0, scale: 0.5, rotate: 90 }}
 						layout
 						className={cn(
-							"relative p-8 max-w-7xl bg-background mx-auto rounded-2xl shadow-2xl flex",
+							"relative p-8 max-w-7xl bg-background mx-auto rounded-2xl shadow-2xl flex w-[min(600px,100%)]",
 							className
 						)}
 					>
@@ -66,7 +66,7 @@ const Modal = ({ children, name, className }: ModalProps) => {
 							initial={{ opacity: 1, scale: 1, rotate: 0 }}
 							whileHover={{ scale: 1.1, rotate: 90 }}
 							type="button"
-							className="absolute top-2 right-2"
+							className="absolute top-8 right-8"
 							onClick={() => closeModal()}
 						>
 							<X className="w-[1.5rem] h-[1.5rem] text-foreground" />
