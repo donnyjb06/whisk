@@ -52,10 +52,10 @@ const Modal = ({ children, name, className }: ModalProps) => {
 				>
 					<motion.div
 						key="container"
-						initial={{ opacity: 0, scale: 0.5, rotate: 90 }}
+						initial={{ opacity: 0, scale: 0, rotate: 45 }}
 						animate={{ opacity: 1, scale: 1, rotate: 0 }}
 						transition={{ duration: 0.5, type: "spring" }}
-						exit={{ opacity: 0, scale: 0.5, rotate: 90 }}
+						exit={{ opacity: 0, scale: 0, rotate: 45 }}
 						layout
 						className={cn(
 							"relative p-8 max-w-7xl bg-background mx-auto rounded-2xl shadow-2xl flex w-[min(600px,100%)]",
