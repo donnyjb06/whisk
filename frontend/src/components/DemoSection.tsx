@@ -40,9 +40,7 @@ const DemoSection = () => {
 						<Tooltip>
 							<TooltipTrigger>
 								<TourTrigger>
-									<Button size="icon" variant="ghost">
 										<CircleQuestionMark className="text-primary w-[1.2rem] h-[1.2rem]" />
-									</Button>
 								</TourTrigger>
 							</TooltipTrigger>
 							<TooltipContent>Take a guided tour</TooltipContent>
