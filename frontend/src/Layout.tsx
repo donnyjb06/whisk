@@ -4,13 +4,15 @@ import ThemeProvider from "./context/Theme/Theme.provider";
 import ModeToggle from "./components/ModeToggle";
 import { AnimatePresence, motion } from "motion/react";
 import { Toaster } from "./components/ui/sonner";
+import ModalProvider from "./context/Modal/Modal.provider";
 
 function Layout() {
 	const location = useLocation();
 
 	return (
 		<>
-			<ThemeProvider>
+			<ModalProvider>
+				<ThemeProvider>
 					<Toaster richColors position="bottom-left" />
 					<ModeToggle className="lg:hidden" />
 					<NavBar />
@@ -26,7 +28,8 @@ function Layout() {
 							<Outlet />
 						</motion.div>
 					</AnimatePresence>
-			</ThemeProvider>
+				</ThemeProvider>
+			</ModalProvider>
 		</>
 	);
 }
