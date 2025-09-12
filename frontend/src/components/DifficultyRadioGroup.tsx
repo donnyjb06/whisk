@@ -3,19 +3,22 @@ import { Label } from "./ui/label";
 import { RadioGroup, RadioGroupItem } from "./ui/radio-group";
 
 interface DifficultyRadioGroupProps {
-  difficulty: Difficulty
-  setDifficulty: React.Dispatch<React.SetStateAction<Difficulty>>;
+	difficulty: Difficulty;
+	setDifficulty:
+		| React.Dispatch<React.SetStateAction<Difficulty>>
+		| ((value: Difficulty) => void);
 }
 
-const DifficultyRadioGroup = ({difficulty, setDifficulty}: DifficultyRadioGroupProps) => {
+const DifficultyRadioGroup = ({
+	difficulty,
+	setDifficulty,
+}: DifficultyRadioGroupProps) => {
 	return (
 		<Label className="button-text flex flex-col items-start">
 			Difficulty
 			<RadioGroup
 				value={difficulty}
-				onValueChange={(value: "Easy" | "Medium" | "Hard") =>
-					setDifficulty(value)
-				}
+				onValueChange={(value: Difficulty) => setDifficulty(value)}
 			>
 				<Label className="button-text">
 					<RadioGroupItem value="Easy" />
