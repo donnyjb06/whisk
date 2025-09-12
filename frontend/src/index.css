@@ -175,10 +175,10 @@
 	html,
 	body,
 	#root {
-		@apply min-h-screen overflow-x-hidden;
+		@apply min-h-screen ;
 	}
 
 	#root {
-		@apply max-w-[1440px] min-w-[320px] mx-auto relative flex flex-col;
+		@apply max-w-[1440px] min-w-[320px] mx-auto relative ;
 	}
 }
