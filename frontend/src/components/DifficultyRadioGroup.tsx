@@ -20,15 +20,15 @@ const DifficultyRadioGroup = ({
 				value={difficulty}
 				onValueChange={(value: Difficulty) => setDifficulty(value)}
 			>
-				<Label className="button-text">
+				<Label className="button-text font-light">
 					<RadioGroupItem value="Easy" />
 					Easy
 				</Label>
-				<Label className="button-text">
+				<Label className="button-text font-light">
 					<RadioGroupItem value="Medium" />
 					Medium
 				</Label>
-				<Label className="button-text">
+				<Label className="button-text font-light">
 					<RadioGroupItem value="Hard" />
 					Hard
 				</Label>
