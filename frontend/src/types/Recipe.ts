@@ -11,4 +11,12 @@ interface Recipe {
 	createdAt?: string;
 }
 
-export type { Recipe, Difficulty };
+interface RecipePreferences {
+	ingredients: string[];
+	allowPantry: boolean;
+	allowExtras: boolean;
+	difficulty: Difficulty;
+	pantry: { full: string[]; selectedIngredients: string[] };
+}
+
+export type { Recipe, Difficulty, RecipePreferences };
