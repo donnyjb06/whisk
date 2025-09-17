@@ -25,7 +25,8 @@ const RecipesPage = () => {
 
 	return (
 		<main className="overflow-hidden max-w-7xl mx-auto flex flex-col gap-6 p-6">
-			<section>
+			<section className="grow p-6 rounded-2xl border border-border flex flex-col gap-8">
+				<h1 className="heading1">Generate your recipe</h1>
 				<RecipeForm
 					recipePreferences={recipePreferences}
 					setRecipePreferences={setRecipePreferences}

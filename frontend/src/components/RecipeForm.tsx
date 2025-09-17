@@ -40,8 +40,8 @@ const RecipeForm = ({
 		<motion.form
 			layout
 			layoutDependency={recipePreferences.allowPantry}
-			transition={{duration: 0.2, ease: "easeIn"}}
-			className="grow p-6 rounded-2xl border border-border flex flex-col justify-between gap-6"
+			transition={{ duration: 0.2, ease: "easeIn" }}
+			className="flex flex-col justify-between gap-6"
 		>
 			<Label className="flex buttontext flex-col items-stretch">
 				Ingredients
