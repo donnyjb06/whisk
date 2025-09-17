@@ -7,7 +7,7 @@ interface Recipe {
 	instructions: string[];
 	difficulty: Difficulty;
 	cookTime: number;
-	createdBy: string;
+	createdBy?: string;
 	createdAt?: string;
 }
 
@@ -19,4 +19,11 @@ interface RecipePreferences {
 	pantry: { full: string[]; selectedIngredients: string[] };
 }
 
-export type { Recipe, Difficulty, RecipePreferences };
+interface RecipesContextType {
+	currentRecipe: Recipe | null;
+	deleteRecipe: (_id: string) => void;
+	addRecipe: (preferences: RecipePreferences) => void;
+	recipes: Recipe[];
+}
+
+export type { Recipe, Difficulty, RecipePreferences, RecipesContextType };
