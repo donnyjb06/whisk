@@ -16,8 +16,9 @@ interface RecipePreferences {
 	allowPantry: boolean;
 	allowExtras: boolean;
 	difficulty: Difficulty;
-	pantry: { full: string[]; selectedIngredients: string[] };
+	pantry?: { full: string[]; selectedIngredients: string[] };
 }
+
 
 interface RecipesContextType {
 	currentRecipe: Recipe | null;
