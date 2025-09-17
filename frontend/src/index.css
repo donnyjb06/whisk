@@ -172,10 +172,13 @@
 	body {
 		@apply bg-background text-foreground font-body transition-colors duration-200;
 	}
+	::-webkit-scrollbar {
+		@apply hidden;
+	}
 	html,
 	body,
 	#root {
-		@apply min-h-screen ;
+		@apply min-h-screen;
 	}
 
 	#root {
