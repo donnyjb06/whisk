@@ -6,6 +6,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { Toaster } from "./components/ui/sonner";
 import ModalProvider from "./context/Modal/Modal.provider";
 import AuthModal from "./components/AuthModal";
+import RecipesProvider from "./context/Recipes/Recipes.provider";
 
 function Layout() {
 	const location = useLocation();
@@ -14,7 +15,7 @@ function Layout() {
 		<>
 			<ModalProvider>
 				<ThemeProvider>
-				<AuthModal />
+					<AuthModal />
 					<Toaster richColors position="bottom-left" />
 					<ModeToggle className="lg:hidden" />
 					<NavBar />
@@ -27,7 +28,9 @@ function Layout() {
 							transition={{ duration: 0.9 }}
 							className="flex-1 mt-10 overflow-x-hidden"
 						>
-							<Outlet />
+							<RecipesProvider>
+								<Outlet />
+							</RecipesProvider>
 						</motion.div>
 					</AnimatePresence>
 				</ThemeProvider>
