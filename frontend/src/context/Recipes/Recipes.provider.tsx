@@ -26,7 +26,8 @@ const RecipesProvider = ({ children }: ChildrenProps) => {
 			};
 
 			const _id = uuidv4();
-			const recipe = { ...(await generateRecipe(userInput)), _id };
+			const createdBy = uuidv4();
+			const recipe = { ...(await generateRecipe(userInput)), _id, createdBy };
 			if (recipe.error) {
 				toast.error(recipe.error);
 				console.error(recipe.raw);
