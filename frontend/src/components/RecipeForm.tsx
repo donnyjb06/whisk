@@ -1,12 +1,14 @@
 import type { Difficulty, RecipePreferences } from "@/types/Recipe";
 import PantrySelect from "./PantrySelect";
-import React from "react";
+import React, { useState, type FormEvent } from "react";
 import { Label } from "./ui/label";
 import { TagsInput } from "./TagsInput";
 import DifficultyRadioGroup from "./DifficultyRadioGroup";
 import { Checkbox } from "./ui/checkbox";
 import { toast } from "sonner";
 import { motion } from "motion/react";
+import { useRecipes } from "@/hooks/useRecipes";
+import { Button } from "./ui/Button";
 
 interface RecipeFormProps {
 	recipePreferences: RecipePreferences;
@@ -17,6 +19,9 @@ const RecipeForm = ({
 	recipePreferences,
 	setRecipePreferences,
 }: RecipeFormProps) => {
+	const { addRecipe } = useRecipes();
+	const [isLoading, setIsLoading] = useState<boolean>(false);
+
 	const toggleSelectedIngredient = (ingredient: string) => {
 		setRecipePreferences((prevPreferences) => {
 			const isActive =
@@ -36,12 +41,27 @@ const RecipeForm = ({
 		});
 	};
 
+	const handleReset = () => {
+		setRecipePreferences((prevPreferences) => ({
+			...prevPreferences,
+			ingredients: [],
+		}));
+	};
+
+	const handleSubmit = async (event: FormEvent) => {
+		event.preventDefault();
+		setIsLoading(true);
+		await addRecipe(recipePreferences);
+		setIsLoading(false);
+	};
+
 	return (
 		<motion.form
 			layout
 			layoutDependency={recipePreferences.allowPantry}
 			transition={{ duration: 0.2, ease: "easeIn" }}
 			className="flex flex-col justify-between gap-6"
+			onSubmit={handleSubmit}
 		>
 			<Label className="flex buttontext flex-col items-stretch">
 				Ingredients
@@ -108,6 +128,19 @@ const RecipeForm = ({
 					toggleSelectedIngredient={toggleSelectedIngredient}
 				/>
 			)}
+			<div className="flex gap-2 self-stretch flex-col md:flex-row ">
+				<Button type="submit" className="buttontext grow" disabled={isLoading} >
+					Generate Recipe
+				</Button>
+				<Button
+					onClick={handleReset}
+					disabled={recipePreferences.ingredients.length === 0}
+					type="reset"
+					className="buttontext  grow bg-foreground hover:bg-muted text-background disabled:bg-card-foreground"
+				>
+					Reset Ingredients
+				</Button>
+			</div>
 		</motion.form>
 	);
 };
