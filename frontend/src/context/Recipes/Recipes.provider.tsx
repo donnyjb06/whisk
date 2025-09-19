@@ -1,7 +1,7 @@
 import type { ChildrenProps } from "@/types/ui";
 import { RecipesContext } from "./Recipes.context";
 import type { Recipe, RecipePreferences } from "@/types/Recipe";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { generateRecipe } from "@/services/gemini/generateRecipe";
 import { toast } from "sonner";
 import { v4 as uuidv4 } from "uuid";
@@ -9,7 +9,24 @@ import { v4 as uuidv4 } from "uuid";
 const RecipesProvider = ({ children }: ChildrenProps) => {
 	const [currentRecipe, setCurrentRecipe] = useState<Recipe | null>(null);
 	const [recipes, setRecipes] = useState<Recipe[]>([]);
-	const recipeIds = useRef<string[]>([]);
+	const recipeIdsRef = useRef<string[]>([]);
+	const hasRunRef = useRef<boolean>(false);
+
+	useEffect(() => {
+		if (hasRunRef.current) return;
+
+		hasRunRef.current = true;
+		const recipeIds = JSON.parse(localStorage.getItem("recipeIds") ?? "[]");
+		recipeIdsRef.current = recipeIds;
+
+		if (recipeIdsRef.current.length === 0) return;
+
+		const recipes = recipeIdsRef.current.map((id) => {
+			const recipe = localStorage.getItem(id);
+			if (recipe) return JSON.parse(recipe);
+		});
+		setRecipes(recipes);
+	}, []);
 
 	const addRecipe = async (preferences: RecipePreferences) => {
 		try {
@@ -18,6 +35,11 @@ const RecipesProvider = ({ children }: ChildrenProps) => {
 						preferences?.pantry?.selectedIngredients
 				  )
 				: preferences.ingredients;
+
+			if (ingredients.length < 4) {
+				toast.warning("You must have at least 4 ingredients");
+				return;
+			}
 
 			const userInput = {
 				ingredients,
@@ -34,8 +56,8 @@ const RecipesProvider = ({ children }: ChildrenProps) => {
 				return;
 			}
 
-			recipeIds.current.push(recipe._id);
-			localStorage.setItem("recipeIds", JSON.stringify(recipeIds.current));
+			recipeIdsRef.current.push(recipe._id);
+			localStorage.setItem("recipeIds", JSON.stringify(recipeIdsRef.current));
 			localStorage.setItem(recipe._id, JSON.stringify(recipe));
 			setCurrentRecipe(recipe);
 			setRecipes((prevRecipes) => [...prevRecipes, recipe]);
@@ -52,9 +74,9 @@ const RecipesProvider = ({ children }: ChildrenProps) => {
 	};
 
 	const deleteRecipe = (_id: string) => {
-		recipeIds.current = recipeIds.current?.filter((id) => id !== _id);
+		recipeIdsRef.current = recipeIdsRef.current?.filter((id) => id !== _id);
 		localStorage.removeItem(_id);
-		localStorage.setItem("recipesId", JSON.stringify(recipeIds.current));
+		localStorage.setItem("recipesId", JSON.stringify(recipeIdsRef.current));
 
 		setRecipes((prevRecipes) =>
 			prevRecipes.filter((recipe) => recipe._id !== _id)
