@@ -2,6 +2,7 @@ import type { Recipe } from "@/types/Recipe";
 import { Button } from "./ui/Button";
 import { ChevronRight, Trash2 } from "lucide-react";
 import { useRecipes } from "@/hooks/useRecipes";
+import { motion } from "motion/react";
 
 interface RecipeCardProps {
 	recipe: Recipe;
@@ -23,7 +24,20 @@ const RecipeCard = ({ recipe }: RecipeCardProps) => {
 	const difficultyColor = DIFFICULTY_COLORS[recipe.difficulty];
 
 	return (
-		<div className="flex flex-col px-2 py-2 rounded-md bg-accent text-accent-foreground cursor-pointer justify-between group min-h-[300px]">
+		<motion.div
+			className="flex flex-col px-2 py-2 rounded-md bg-accent text-accent-foreground cursor-pointer justify-between group min-h-[300px]"
+			key={recipe._id}
+			layout
+			exit={{ opacity: 0, scale: 0.9 }}
+			transition={{
+				duration: 0.25,
+				layout: {
+					type: "spring",
+					stiffness: 300,
+					damping: 25,
+				},
+			}}
+		>
 			{" "}
 			<div
 				className={`px-3 py-6 bg-card rounded-sm grow group-hover:scale-[1.01] transition-transform duration-200`}
@@ -45,11 +59,7 @@ const RecipeCard = ({ recipe }: RecipeCardProps) => {
 					</p>
 					<p className="buttontext text-card-foreground">
 						Difficulty:{" "}
-						<span
-							className={difficultyColor}
-						>
-							{recipe.difficulty}
-						</span>
+						<span className={difficultyColor}>{recipe.difficulty}</span>
 					</p>
 					<ul className="flex gap-2 flex-wrap mt-3">
 						{recipe.ingredients.map((ingredient, i) => {
@@ -83,7 +93,7 @@ const RecipeCard = ({ recipe }: RecipeCardProps) => {
 					<Trash2 />
 				</Button>
 			</div>
-		</div>
+		</motion.div>
 	);
 };
 
