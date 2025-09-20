@@ -9,9 +9,9 @@ interface RecipeCardProps {
 
 const MAX_LISTED_INGREDIENTS = 5;
 const DIFFICULTY_COLORS = {
-	Easy: "text-green-200",
-	Medium: "text-yellow-200",
-	Hard: "text-red-200",
+	Easy: "text-easy",
+	Medium: "text-medium",
+	Hard: "text-hard",
 };
 
 const RecipeCard = ({ recipe }: RecipeCardProps) => {
