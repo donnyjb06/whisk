@@ -5,6 +5,7 @@ import { createBrowserRouter, type DataRouter } from "react-router";
 import { RouterProvider } from "react-router/dom";
 import Layout from "./Layout.tsx";
 import LandingPage from "./pages/LandingPage.tsx";
+import RecipesPage from "./pages/RecipesPage.tsx";
 
 const router: DataRouter = createBrowserRouter([
 	{
@@ -14,6 +15,10 @@ const router: DataRouter = createBrowserRouter([
 			{
 				index: true,
 				element: <LandingPage /> 
+			},
+			{
+				path: "/recipes",
+				element: <RecipesPage />
 			}
 		]
 	},
