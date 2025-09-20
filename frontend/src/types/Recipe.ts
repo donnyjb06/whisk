@@ -1,7 +1,7 @@
 type Difficulty = "Easy" | "Medium" | "Hard";
 
 interface Recipe {
-	_id?: string;
+	_id: string;
 	title: string;
 	ingredients: string[];
 	instructions: string[];
