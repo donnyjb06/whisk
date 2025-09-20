@@ -1,6 +1,7 @@
 import { useState } from "react";
 import RecipeForm from "@/components/RecipeForm";
 import type { RecipePreferences } from "@/types/Recipe";
+import RecipeGrid from "@/components/RecipeGrid";
 
 const RecipesPage = () => {
 	const [recipePreferences, setRecipePreferences] = useState<RecipePreferences>(
@@ -31,6 +32,9 @@ const RecipesPage = () => {
 					recipePreferences={recipePreferences}
 					setRecipePreferences={setRecipePreferences}
 				/>
+			</section>
+			<section className="grow">
+				<RecipeGrid />
 			</section>
 		</main>
 	);
