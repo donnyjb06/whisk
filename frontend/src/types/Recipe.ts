@@ -22,7 +22,7 @@ interface RecipePreferences {
 interface RecipesContextType {
 	currentRecipe: Recipe | null;
 	deleteRecipe: (_id: string) => void;
-	addRecipe: (preferences: RecipePreferences) => void;
+	addRecipe: (preferences: RecipePreferences) => Promise<Recipe>;
 	recipes: Recipe[];
 }
 
