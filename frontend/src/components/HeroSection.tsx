@@ -24,7 +24,7 @@ export default function HeroSection() {
 										size="lg"
 										className="pr-4.5 buttontext text-primary-foreground group hover:bg-primary-emphasis duration-200"
 									>
-										<a href="#link">
+										<a href="/recipes">
 											<span className="text-nowrap">Get Started</span>
 											<ChevronRight className="opacity-50 group-hover:translate-x-2 duration-200 ease-out" />
 										</a>
