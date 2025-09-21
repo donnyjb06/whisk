@@ -7,6 +7,7 @@ import { Toaster } from "./components/ui/sonner";
 import ModalProvider from "./context/Modal/Modal.provider";
 import AuthModal from "./components/AuthModal";
 import RecipesProvider from "./context/Recipes/Recipes.provider";
+import RecipeModal from "./components/RecipeModal";
 
 function Layout() {
 	const location = useLocation();
@@ -29,6 +30,7 @@ function Layout() {
 							className="flex-1 mt-10 overflow-x-hidden"
 						>
 							<RecipesProvider>
+								<RecipeModal />
 								<Outlet />
 							</RecipesProvider>
 						</motion.div>
