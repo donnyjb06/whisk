@@ -3,17 +3,18 @@ import { RecipesContext } from "./Recipes.context";
 import type { Recipe, RecipePreferences } from "@/types/Recipe";
 import { useEffect, useRef, useState } from "react";
 import { generateRecipe } from "@/services/gemini/generateRecipe";
-import { toast } from "sonner";
 import { v4 as uuidv4 } from "uuid";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { MOCK_RECIPES } from "@/lib/constants";
+import { useModal } from "@/hooks/useModal";
 
 const RecipesProvider = ({ children }: ChildrenProps) => {
 	const [currentRecipe, setCurrentRecipe] = useState<Recipe | null>(null);
 	const [recipes, setRecipes] = useState<Recipe[]>([]);
 	const recipeIdsRef = useRef<string[]>([]);
 	const hasRunRef = useRef<boolean>(false);
+	const { setModalIsOpen } = useModal();
 
 	useEffect(() => {
 		if (hasRunRef.current) return;
@@ -32,7 +33,6 @@ const RecipesProvider = ({ children }: ChildrenProps) => {
 				const recipe = localStorage.getItem(id);
 				if (recipe) return JSON.parse(recipe);
 			});
-		console.log(recipes);
 		setRecipes(recipes);
 	}, []);
 
@@ -45,8 +45,7 @@ const RecipesProvider = ({ children }: ChildrenProps) => {
 				: preferences.ingredients;
 
 			if (ingredients.length < 4) {
-				toast.warning("You must have at least 4 ingredients");
-				return;
+				throw new Error("You must have at least 4 ingredients")
 			}
 
 			const userInput = {
@@ -59,9 +58,8 @@ const RecipesProvider = ({ children }: ChildrenProps) => {
 			const createdBy = uuidv4();
 			const recipe = { ...(await generateRecipe(userInput)), _id, createdBy };
 			if (recipe.error) {
-				toast.error(recipe.error);
-				console.error(recipe.raw);
-				return;
+				console.error(recipe.error)
+				throw new Error(recipe.error);
 			}
 
 			recipeIdsRef.current.push(recipe._id);
@@ -69,15 +67,15 @@ const RecipesProvider = ({ children }: ChildrenProps) => {
 			localStorage.setItem(recipe._id, JSON.stringify(recipe));
 			setCurrentRecipe(recipe);
 			setRecipes((prevRecipes) => [...prevRecipes, recipe]);
+			setModalIsOpen("recipe");
+			return recipe
 		} catch (error) {
 			if (error instanceof Error) {
-				toast.error("Error when generating recipe. Please try again!");
 				console.error(error.message);
-				return;
+				throw error
 			}
 
-			toast.error("An unknown error has occured. Please try again!");
-			console.error(error);
+			throw new Error("An unknown error has occured. Please try again!")
 		}
 	};
 

@@ -51,8 +51,20 @@ const RecipeForm = ({
 	const handleSubmit = async (event: FormEvent) => {
 		event.preventDefault();
 		setIsLoading(true);
-		await addRecipe(recipePreferences);
-		setIsLoading(false);
+		try {
+			const recipe = await addRecipe(recipePreferences);
+			if (!recipe) {
+				toast.error("Something unusual occured. Please try again!");
+			}
+		} catch (error) {
+			if (error instanceof Error) {
+				toast.error(error.message);
+				console.error(error.message);
+				return;
+			}
+		} finally {
+			setIsLoading(false);
+		}
 	};
 
 	return (
@@ -129,7 +141,7 @@ const RecipeForm = ({
 				/>
 			)}
 			<div className="flex gap-2 self-stretch flex-col md:flex-row ">
-				<Button type="submit" className="buttontext grow" disabled={isLoading} >
+				<Button type="submit" className="buttontext grow" disabled={isLoading}>
 					Generate Recipe
 				</Button>
 				<Button
