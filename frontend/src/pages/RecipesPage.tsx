@@ -11,14 +11,7 @@ const RecipesPage = () => {
 			allowPantry: false,
 			difficulty: "Easy",
 			pantry: {
-				full: [
-					"chicken",
-					"salt",
-					"black pepper",
-					"chicken broth",
-					"eggs",
-					"milk",
-				],
+				full: [],
 				selectedIngredients: [],
 			},
 		}
