@@ -24,6 +24,7 @@ interface RecipesContextType {
 	deleteRecipe: (_id: string) => void;
 	addRecipe: (preferences: RecipePreferences) => Promise<Recipe>;
 	recipes: Recipe[];
+	showRecipeModal: (recipe: Recipe) => void;
 }
 
 export type { Recipe, Difficulty, RecipePreferences, RecipesContextType };

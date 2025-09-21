@@ -88,10 +88,15 @@ const RecipesProvider = ({ children }: ChildrenProps) => {
 			prevRecipes.filter((recipe) => recipe._id !== _id)
 		);
 	};
+	
+	const showRecipeModal = (recipe: Recipe) => {
+		setCurrentRecipe(recipe);
+		setModalIsOpen("recipe");
+	}
 
 	return (
 		<RecipesContext.Provider
-			value={{ currentRecipe, recipes, addRecipe, deleteRecipe }}
+			value={{ currentRecipe, showRecipeModal, recipes, addRecipe, deleteRecipe }}
 		>
 			{children}
 		</RecipesContext.Provider>

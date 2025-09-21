@@ -18,14 +18,14 @@ const DIFFICULTY_COLORS = {
 const RecipeCard = ({ recipe }: RecipeCardProps) => {
 	const hours = recipe && Math.floor((recipe.cookTime as number) / 60);
 	const minutes = recipe && recipe?.cookTime % 60;
-	const { deleteRecipe } = useRecipes();
+	const { showRecipeModal, deleteRecipe } = useRecipes();
 	const extraIngredientsAmount =
 		recipe.ingredients.length - MAX_LISTED_INGREDIENTS;
 	const difficultyColor = DIFFICULTY_COLORS[recipe.difficulty];
 
 	return (
 		<motion.div
-			className="flex flex-col px-2 py-2 rounded-md bg-accent text-accent-foreground cursor-pointer justify-between group min-h-[300px]"
+			className="flex flex-col px-2 py-2 rounded-md bg-accent text-accent-foreground justify-between group min-h-[300px]"
 			key={recipe._id}
 			layout
 			exit={{ opacity: 0, scale: 0.9 }}
@@ -41,6 +41,7 @@ const RecipeCard = ({ recipe }: RecipeCardProps) => {
 			{" "}
 			<div
 				className={`px-3 py-6 bg-card rounded-sm grow group-hover:scale-[1.01] transition-transform duration-200`}
+				onClick={() => showRecipeModal(recipe)}
 			>
 				{" "}
 				<div className="flex flex-col gap-1">
@@ -81,9 +82,12 @@ const RecipeCard = ({ recipe }: RecipeCardProps) => {
 				</div>
 			</div>
 			<div className="px-2 py-2 flex items-center  justify-between">
-				<button className="flex gap-1 items-center buttontext">
+				<button
+					onClick={() => showRecipeModal(recipe)}
+					className="flex gap-1 items-center buttontext cursor-pointer group/button"
+				>
 					View{" "}
-					<ChevronRight className="group-hover:translate-x-1 transition-transform duration-300 w-[1rem] h-[1rem]" />
+					<ChevronRight className="group-hover/button:translate-x-1 transition-transform duration-300 w-[1rem] h-[1rem]" />
 				</button>
 				<Button
 					variant="outline"
