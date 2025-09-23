@@ -6,7 +6,7 @@ import { generateRecipe } from "@/services/gemini/generateRecipe";
 import { v4 as uuidv4 } from "uuid";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { MOCK_RECIPES } from "@/lib/constants";
+import { MOCK_RECIPES as _MOCK_RECIPES } from "@/lib/constants";
 import { useModal } from "@/hooks/useModal";
 
 const RecipesProvider = ({ children }: ChildrenProps) => {
@@ -24,7 +24,7 @@ const RecipesProvider = ({ children }: ChildrenProps) => {
 		recipeIdsRef.current = recipeIds;
 
 		if (recipeIdsRef.current.length === 0) return;
-		/* 		const mock = MOCK_RECIPES.map((recipe) => {
+		/* 		const mock = _MOCK_RECIPES.map((recipe) => {
 			localStorage.setItem(recipe._id, JSON.stringify(recipe));
 			return recipe._id;
 		});
@@ -45,7 +45,7 @@ const RecipesProvider = ({ children }: ChildrenProps) => {
 				: preferences.ingredients;
 
 			if (ingredients.length < 4) {
-				throw new Error("You must have at least 4 ingredients")
+				throw new Error("You must have at least 4 ingredients");
 			}
 
 			const userInput = {
@@ -58,7 +58,7 @@ const RecipesProvider = ({ children }: ChildrenProps) => {
 			const createdBy = uuidv4();
 			const recipe = { ...(await generateRecipe(userInput)), _id, createdBy };
 			if (recipe.error) {
-				console.error(recipe.error)
+				console.error(recipe.error);
 				throw new Error(recipe.error);
 			}
 
@@ -68,14 +68,14 @@ const RecipesProvider = ({ children }: ChildrenProps) => {
 			setCurrentRecipe(recipe);
 			setRecipes((prevRecipes) => [...prevRecipes, recipe]);
 			setModalIsOpen("recipe");
-			return recipe
+			return recipe;
 		} catch (error) {
 			if (error instanceof Error) {
 				console.error(error.message);
-				throw error
+				throw error;
 			}
 
-			throw new Error("An unknown error has occured. Please try again!")
+			throw new Error("An unknown error has occured. Please try again!");
 		}
 	};
 
@@ -88,15 +88,21 @@ const RecipesProvider = ({ children }: ChildrenProps) => {
 			prevRecipes.filter((recipe) => recipe._id !== _id)
 		);
 	};
-	
+
 	const showRecipeModal = (recipe: Recipe) => {
 		setCurrentRecipe(recipe);
 		setModalIsOpen("recipe");
-	}
+	};
 
 	return (
 		<RecipesContext.Provider
-			value={{ currentRecipe, showRecipeModal, recipes, addRecipe, deleteRecipe }}
+			value={{
+				currentRecipe,
+				showRecipeModal,
+				recipes,
+				addRecipe,
+				deleteRecipe,
+			}}
 		>
 			{children}
 		</RecipesContext.Provider>
