@@ -17,10 +17,10 @@ function Layout() {
 		<>
 			<ModalProvider>
 				<ThemeProvider>
-					<AuthModal />
 					<Toaster richColors position="bottom-left" />
 					<ModeToggle className="lg:hidden" />
 					<UserDataProvider>
+						<AuthModal />
 						<NavBar />
 						<AnimatePresence mode="wait">
 							<motion.div
