@@ -1,18 +1,24 @@
-import { useState, type ChangeEvent } from "react";
+import { useState, type ChangeEvent, type FormEvent } from "react";
 import Modal from "./Modal";
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
 import { Button } from "./ui/Button";
+import { useUserData } from "@/hooks/useUserData";
+import { toast } from "sonner";
+import { useModal } from "@/hooks/useModal";
 
 const AuthModal = () => {
 	const [formValues, setFormValues] = useState<{
-		name?: string;
+		name: string;
 		email: string;
 		password: string;
 	}>({ name: "", email: "", password: "" });
 
 	const [type, setType] = useState<"login" | "register">("login");
 	const isLoginModal = type === "login";
+	const [loading, setLoading] = useState<boolean>(false);
+	const { setModalIsOpen } = useModal();
+	const { loginUser, registerUser } = useUserData();
 
 	const switchModalType = () => {
 		setType((prevType) => (prevType === "login" ? "register" : "login"));
@@ -27,10 +33,63 @@ const AuthModal = () => {
 		}));
 	};
 
+	const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+		event.preventDefault();
+
+		setLoading(true);
+		try {
+			const { name, email, password } = formValues;
+			if (isLoginModal) {
+				if (!email || !password) {
+					toast.error("Missing values. Please fill out entire form");
+					return;
+				}
+
+				const user = loginUser({ email, password });
+
+				if (!user) {
+					console.error("No user was returned when attempting to login user");
+					toast.error(
+						"An error has occured when attempting to login user. Please try again."
+					);
+				}
+			} else {
+				if (!name || !email || !password) {
+					toast.error("Missing values. Please fill out entire form");
+				}
+				const user = registerUser(formValues);
+				if (!user) {
+					console.error(
+						"No user was returned when attempting to register user"
+					);
+					toast.error(
+						"An error has occured when attempting to register user. Please try again."
+					);
+				}
+			}
+
+			setModalIsOpen("");
+		} catch (error) {
+			if (error instanceof Error) {
+				console.error(error.message);
+				toast.error(error.message);
+				return;
+			}
+
+			console.error("An unknown error has occured", error);
+			toast.error("An unknown error has occured. Please try again!");
+		} finally {
+			setLoading(false)
+		}
+	};
+
 	return (
 		<Modal name="auth" className="flex-col items-start gap-6">
 			<h2 className="heading2">{type === "login" ? "Login" : "Register"}</h2>
-			<form className="flex flex-col gap-4 self-stretch">
+			<form
+				onSubmit={handleSubmit}
+				className="flex flex-col gap-4 self-stretch"
+			>
 				{type === "login" ? (
 					<>
 						<Label className="formlabel items-start">
@@ -88,7 +147,9 @@ const AuthModal = () => {
 						</Label>
 					</>
 				)}
-				<Button>{isLoginModal ? "Login" : "Register"}</Button>
+				<Button disabled={loading}>
+					{isLoginModal ? "Login" : "Register"}
+				</Button>
 			</form>
 			<p className="buttontext flex gap-1 text-muted">
 				{type === "login"
