@@ -2,8 +2,10 @@ import { useState } from "react";
 import RecipeForm from "@/components/RecipeForm";
 import type { RecipePreferences } from "@/types/Recipe";
 import RecipeGrid from "@/components/RecipeGrid";
+import { useUserData } from "@/hooks/useUserData";
 
 const RecipesPage = () => {
+	const { pantry } = useUserData();
 	const [recipePreferences, setRecipePreferences] = useState<RecipePreferences>(
 		{
 			ingredients: [],
@@ -11,7 +13,7 @@ const RecipesPage = () => {
 			allowPantry: false,
 			difficulty: "Easy",
 			pantry: {
-				full: [],
+				full: pantry,
 				selectedIngredients: [],
 			},
 		}
