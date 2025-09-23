@@ -12,8 +12,28 @@ interface ModalContextType {
 	setModalIsOpen: React.Dispatch<React.SetStateAction<string>>;
 }
 
-interface ChildrenProps {
-  children: React.ReactNode
+interface User {
+	email: string;
+	name: string;
+	password: string;
 }
 
-export type { Theme, ThemeContextType, ChildrenProps, ModalContextType };
+interface UserDataContextType {
+	currentUser: Omit<User, "password"> | null;
+	pantry: string[];
+	loginUser: ({ email, password }: Omit<User, "name">) => User;
+	registerUser: ({ name, email, password }: User) => Omit<User, "password">;
+}
+
+interface ChildrenProps {
+	children: React.ReactNode;
+}
+
+export type {
+	Theme,
+	ThemeContextType,
+	ChildrenProps,
+	ModalContextType,
+	UserDataContextType,
+	User,
+};
