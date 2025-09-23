@@ -26,7 +26,9 @@ const ProtectedRoute = ({
 	}
 
 	if (!currentUser && !anonymous) {
-		toast.error("You must be logged in to access this page");
+		toast.error("You must be logged in to access this page", {
+			id: "auth-required",
+		});
 		setModalIsOpen("auth");
 		return <Navigate to="/" state={{ from: location }} replace />;
 	}
