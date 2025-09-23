@@ -20,13 +20,13 @@ const UserDataProvider = ({ children }: ChildrenProps) => {
 	}, []);
 
 	useEffect(() => {
-		const userDetails = localStorage.getItem("user");
+		const userDetails = localStorage.getItem("user")
 		const pantry = localStorage.getItem("pantry") ?? "[]";
+		setHydrated(true);
 		if (!userDetails) return;
 		const { name, email } = JSON.parse(userDetails);
 		setCurrentUser({ name, email });
 		setPantry(JSON.parse(pantry));
-		setHydrated(true);
 	}, []);
 
 	// FIXME: use jwt over storing email and password in localStorage
