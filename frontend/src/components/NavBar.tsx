@@ -12,6 +12,7 @@ import {
 } from "./ui/ResizableNavBar";
 import ModeToggle from "./ModeToggle";
 import { useModal } from "@/hooks/useModal";
+import { useUserData } from "@/hooks/useUserData";
 
 const NavBar = () => {
 	const navItems = [
@@ -29,7 +30,8 @@ const NavBar = () => {
 		},
 	];
 	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
-	const {setModalIsOpen} = useModal()
+	const { setModalIsOpen } = useModal();
+	const { currentUser } = useUserData();
 	return (
 		<Navbar>
 			{/* Desktop Navigation */}
@@ -37,13 +39,15 @@ const NavBar = () => {
 				<NavbarLogo isMobileView={false} />
 				<NavItems items={navItems} />
 				<div className="flex items-center gap-4">
-					<NavbarButton
-						variant="primary"
-						className="bg-primary text-primary-foreground hover:bg-primary-emphasis buttontext"
-						onClick={() => setModalIsOpen("auth")}
-					>
-						Login
-					</NavbarButton>
+					{!currentUser && (
+						<NavbarButton
+							variant="primary"
+							className="bg-primary text-primary-foreground hover:bg-primary-emphasis buttontext"
+							onClick={() => setModalIsOpen("auth")}
+						>
+							Login
+						</NavbarButton>
+					)}
 					<ModeToggle />
 				</div>
 			</NavBody>
@@ -73,17 +77,18 @@ const NavBar = () => {
 						</a>
 					))}
 					<div className="flex w-full flex-col gap-4">
-						<NavbarButton
-							onClick={() => {
-								 setIsMobileMenuOpen(false)
-								 setModalIsOpen("auth")
-							}}
-							variant="primary"
-							className="w-full text-background button-text"
-
-						>
-							Login
-						</NavbarButton>
+						{!currentUser && (
+							<NavbarButton
+								onClick={() => {
+									setIsMobileMenuOpen(false);
+									setModalIsOpen("auth");
+								}}
+								variant="primary"
+								className="w-full text-background button-text"
+							>
+								Login
+							</NavbarButton>
+						)}
 					</div>
 				</MobileNavMenu>
 			</MobileNav>
