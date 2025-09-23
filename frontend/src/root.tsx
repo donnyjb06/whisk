@@ -6,6 +6,7 @@ import { RouterProvider } from "react-router/dom";
 import Layout from "./Layout.tsx";
 import LandingPage from "./pages/LandingPage.tsx";
 import RecipesPage from "./pages/RecipesPage.tsx";
+import ProtectedRoute from "./components/ProtectedRoute.tsx";
 
 const router: DataRouter = createBrowserRouter([
 	{
@@ -14,13 +15,21 @@ const router: DataRouter = createBrowserRouter([
 		children: [
 			{
 				index: true,
-				element: <LandingPage /> 
+				element: (
+					<ProtectedRoute anonymous>
+						<LandingPage />
+					</ProtectedRoute>
+				),
 			},
 			{
 				path: "/recipes",
-				element: <RecipesPage />
-			}
-		]
+				element: (
+					<ProtectedRoute>
+						<RecipesPage />
+					</ProtectedRoute>
+				),
+			},
+		],
 	},
 ]);
 
