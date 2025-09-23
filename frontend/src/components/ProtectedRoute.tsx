@@ -12,10 +12,14 @@ const ProtectedRoute = ({
 	children,
 	anonymous = false,
 }: ProtectedRouteProps) => {
-	const { currentUser } = useUserData();
+	const { currentUser, hydrated } = useUserData();
 	const { setModalIsOpen } = useModal();
 	const location = useLocation();
 	const from = location.state?.from || "/";
+
+	if (!hydrated) {
+		return null;
+	}
 
 	if (anonymous && currentUser && from !== "/") {
 		return <Navigate to={from} />;

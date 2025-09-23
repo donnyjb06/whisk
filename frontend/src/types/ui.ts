@@ -23,6 +23,7 @@ interface UserDataContextType {
 	pantry: string[];
 	loginUser: ({ email, password }: Omit<User, "name">) => User;
 	registerUser: ({ name, email, password }: User) => Omit<User, "password">;
+	hydrated: boolean;
 }
 
 interface ChildrenProps {

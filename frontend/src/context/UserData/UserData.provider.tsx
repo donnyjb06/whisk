@@ -6,6 +6,7 @@ const UserDataProvider = ({ children }: ChildrenProps) => {
 	const [currentUser, setCurrentUser] = useState<Omit<User, "password"> | null>(
 		null
 	);
+	const [hydrated, setHydrated] = useState<boolean>(false);
 	const [pantry, setPantry] = useState<string[]>([]);
 
 	const getUser = useCallback(() => {
@@ -25,6 +26,7 @@ const UserDataProvider = ({ children }: ChildrenProps) => {
 		const { name, email } = JSON.parse(userDetails);
 		setCurrentUser({ name, email });
 		setPantry(JSON.parse(pantry));
+		setHydrated(true);
 	}, []);
 
 	// FIXME: use jwt over storing email and password in localStorage
@@ -42,9 +44,10 @@ const UserDataProvider = ({ children }: ChildrenProps) => {
 	};
 
 	const registerUser = ({ name, email, password }: User) => {
-		const userDetails = getUser();
+		const user = localStorage.getItem("user") ?? "{}";
+		const userDetails = JSON.parse(user);
 
-		if (userDetails.email === email) {
+		if (userDetails?.email === email) {
 			throw new Error("Email address already exists");
 		}
 
@@ -55,7 +58,7 @@ const UserDataProvider = ({ children }: ChildrenProps) => {
 
 	return (
 		<UserDataContext.Provider
-			value={{ currentUser, pantry, loginUser, registerUser }}
+			value={{ currentUser, pantry, loginUser, registerUser, hydrated }}
 		>
 			{children}
 		</UserDataContext.Provider>
