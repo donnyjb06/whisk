@@ -7,6 +7,7 @@ import Layout from "./Layout.tsx";
 import LandingPage from "./pages/LandingPage.tsx";
 import RecipesPage from "./pages/RecipesPage.tsx";
 import ProtectedRoute from "./components/ProtectedRoute.tsx";
+import ProfilePage from "./pages/ProfilePage.tsx";
 
 const router: DataRouter = createBrowserRouter([
 	{
@@ -28,6 +29,17 @@ const router: DataRouter = createBrowserRouter([
 						<RecipesPage />
 					</ProtectedRoute>
 				),
+			},
+			{
+				path: "/profile",
+				element: (
+					<ProtectedRoute>
+						<ProfilePage />
+					</ProtectedRoute>
+				),
+				children: [
+					
+				]
 			},
 		],
 	},
