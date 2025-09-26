@@ -12,6 +12,7 @@ import UserDataProvider from "./context/UserData/UserData.provider";
 
 function Layout() {
 	const location = useLocation();
+	const topLevel = location.pathname.split("/")[1] || "/";
 
 	return (
 		<>
@@ -22,9 +23,9 @@ function Layout() {
 					<UserDataProvider>
 						<AuthModal />
 						<NavBar />
-						<AnimatePresence mode="wait">
+						<AnimatePresence mode="sync">
 							<motion.div
-								key={location.pathname}
+								key={topLevel}
 								initial={{ opacity: 0, y: 10 }}
 								animate={{ opacity: 1, y: 0 }}
 								exit={{ opacity: 0, y: -10 }}
