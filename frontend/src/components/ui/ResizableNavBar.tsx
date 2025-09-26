@@ -133,7 +133,6 @@ export const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
 			)}
 		>
 			{items.map((item, idx) => {
-				console.log(item.link.split("/")[1]);
 				return (
 					<a
 						onMouseEnter={() => setHovered(idx)}
