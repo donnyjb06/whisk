@@ -53,7 +53,7 @@ interface MobileNavMenuProps {
 }
 
 interface NavBarLogoProps {
-	isMobileView: boolean
+	isMobileView: boolean;
 }
 
 export const Navbar = ({ children, className }: NavbarProps) => {
@@ -122,7 +122,7 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
 
 export const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
 	const [hovered, setHovered] = useState<number | null>(null);
-	const location = useLocation().pathname;
+	const location = useLocation().pathname.split("/")[1] || "";
 
 	return (
 		<motion.div
@@ -132,28 +132,32 @@ export const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
 				className
 			)}
 		>
-			{items.map((item, idx) => (
-				<a
-					onMouseEnter={() => setHovered(idx)}
-					onClick={onItemClick}
-					className={`relative px-4 py-2 text-${
-						hovered === idx || (hovered === null && location === item.link)
-							? "primary-foreground"
-							: "background"
-					} hover:text-primary-foreground duration-500 `}
-					key={`link-${idx}`}
-					href={item.link}
-				>
-					{(hovered === idx ||
-						(hovered === null && location === item.link)) && (
-						<motion.div
-							layoutId="hovered"
-							className="absolute inset-0 h-full w-full rounded-full bg-primary-emphasis"
-						/>
-					)}
-					<span className="relative z-20">{item.name}</span>
-				</a>
-			))}
+			{items.map((item, idx) => {
+				console.log(item.link.split("/")[1]);
+				return (
+					<a
+						onMouseEnter={() => setHovered(idx)}
+						onClick={onItemClick}
+						className={`relative px-4 py-2 text-${
+							hovered === idx ||
+							(hovered === null && location === item.link.split("/")[1])
+								? "primary-foreground"
+								: "background"
+						} hover:text-primary-foreground duration-500 `}
+						key={`link-${idx}`}
+						href={item.link}
+					>
+						{(hovered === idx ||
+							(hovered === null && location === item.link.split("/")[1])) && (
+							<motion.div
+								layoutId="hovered"
+								className="absolute inset-0 h-full w-full rounded-full bg-primary-emphasis"
+							/>
+						)}
+						<span className="relative z-20">{item.name}</span>
+					</a>
+				);
+			})}
 		</motion.div>
 	);
 };
@@ -242,7 +246,7 @@ export const MobileNavToggle = ({
 	);
 };
 
-export const NavbarLogo = ({isMobileView}: NavBarLogoProps) => {
+export const NavbarLogo = ({ isMobileView }: NavBarLogoProps) => {
 	const { theme } = useTheme();
 	let src;
 
@@ -256,7 +260,7 @@ export const NavbarLogo = ({isMobileView}: NavBarLogoProps) => {
 		if (theme === "dark") {
 			src = darkModeLogo;
 		} else {
-			src = lightModeLogo
+			src = lightModeLogo;
 		}
 	}
 	return (
@@ -264,12 +268,7 @@ export const NavbarLogo = ({isMobileView}: NavBarLogoProps) => {
 			href="#"
 			className="relative z-20 mr-4 flex items-center space-x-2 px-2 py-1 text-sm font-normal text-black"
 		>
-			<img
-				src={src}
-				alt="logo"
-				width={50}
-				height={50}
-			/>
+			<img src={src} alt="logo" width={50} height={50} />
 		</a>
 	);
 };
