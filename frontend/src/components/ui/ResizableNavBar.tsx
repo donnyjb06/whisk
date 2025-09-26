@@ -13,6 +13,7 @@ import lightModeLogo from "@/assets/logo-white.png";
 import React, { useRef, useState } from "react";
 import { useTheme } from "@/hooks/useTheme";
 import { useLocation } from "react-router";
+import { Link } from "react-router-dom";
 
 interface NavbarProps {
 	children: React.ReactNode;
@@ -134,7 +135,7 @@ export const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
 		>
 			{items.map((item, idx) => {
 				return (
-					<a
+					<Link
 						onMouseEnter={() => setHovered(idx)}
 						onClick={onItemClick}
 						className={`relative px-4 py-2 text-${
@@ -144,7 +145,7 @@ export const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
 								: "background"
 						} hover:text-primary-foreground duration-500 `}
 						key={`link-${idx}`}
-						href={item.link}
+						to={item.link}
 					>
 						{(hovered === idx ||
 							(hovered === null && location === item.link.split("/")[1])) && (
@@ -154,7 +155,7 @@ export const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
 							/>
 						)}
 						<span className="relative z-20">{item.name}</span>
-					</a>
+					</Link>
 				);
 			})}
 		</motion.div>
