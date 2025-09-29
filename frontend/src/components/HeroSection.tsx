@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/Button";
 import { ChevronRight } from "lucide-react";
 import heroImage from "@/assets/landing-hero-image.jpg";
+import { Link } from "react-router-dom";
 
 export default function HeroSection() {
 	return (
@@ -24,10 +25,10 @@ export default function HeroSection() {
 										size="lg"
 										className="pr-4.5 buttontext text-primary-foreground group hover:bg-primary-emphasis duration-200"
 									>
-										<a href="/recipes">
+										<Link to="/recipes">
 											<span className="text-nowrap">Get Started</span>
 											<ChevronRight className="opacity-50 group-hover:translate-x-2 duration-200 ease-out" />
-										</a>
+										</Link>
 									</Button>
 								</div>
 							</div>
