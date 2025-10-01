@@ -23,7 +23,7 @@ const Sidebar = () => {
 	if (!currentUser) redirect("/");
 	return (
 		<div className="flex flex-col gap-4 items-start pb-6 md:pr-6 md:pb-0 min-w-1/4 border-b-2 md:border-b-0 md:border-r-2 flex-0">
-			<h4 className="heading5 lg:heading4 break-all">
+			<h4 className="heading5 lg:heading4 break-all line-clamp-3 ">
 				{currentUser?.name}
 			</h4>
 			<div className="flex flex-col gap-1 lg:gap-2">
