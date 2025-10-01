@@ -57,6 +57,8 @@ const EditProfileForm = () => {
 						Name
 						<Input
 							value={formValues.name}
+							maxLength={100}
+							minLength={2}
 							onChange={handleInputChange}
 							name="name"
 						/>
@@ -65,6 +67,8 @@ const EditProfileForm = () => {
 						Email Address
 						<Input
 							value={formValues.email}
+							minLength={3}
+							maxLength={320}
 							onChange={handleInputChange}
 							name="email"
 							type="email"
