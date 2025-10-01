@@ -2,11 +2,11 @@ import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/input";
 import { useUserData } from "@/hooks/useUserData";
 import { Label } from "@radix-ui/react-label";
-import { useState, type FormEvent } from "react";
+import { useState, type ChangeEvent, type FormEvent } from "react";
 import { toast } from "sonner";
 
 const EditProfileForm = () => {
-	const { currentUser } = useUserData();
+	const { currentUser, editProfile } = useUserData();
 
 	const [formValues, setFormValues] = useState<{
 		name: string;
@@ -14,12 +14,29 @@ const EditProfileForm = () => {
 	}>({ name: currentUser?.name ?? "", email: currentUser?.email ?? "" });
 	const [loading, setLoading] = useState<boolean>(false);
 
+	const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+		const { name, value } = event.target;
+
+		setFormValues((prevValues) => ({
+			...prevValues,
+			[name]: value,
+		}));
+	};
+
 	const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 		setLoading(true);
 
 		try {
-			setFormValues({ name: "", email: "" });
+			const user = editProfile(formValues);
+			if (!user) {
+				toast.error(
+					"An error has occured when attempting to edit your profile"
+				);
+				return;
+			}
+
+			toast.success("Profile has been updated");
 		} catch (error) {
 			if (error instanceof Error) {
 				toast.error(error.message);
@@ -38,11 +55,20 @@ const EditProfileForm = () => {
 				<fieldset className="flex flex-col gap-2">
 					<Label className="flex buttontext flex-col items-stretch gap-1">
 						Name
-						<Input value={formValues.name} />
+						<Input
+							value={formValues.name}
+							onChange={handleInputChange}
+							name="name"
+						/>
 					</Label>
 					<Label className="flex buttontext flex-col items-stretch gap-1">
 						Email Address
-						<Input value={formValues.email} />
+						<Input
+							value={formValues.email}
+							onChange={handleInputChange}
+							name="email"
+							type="email"
+						/>
 					</Label>
 				</fieldset>
 				<Button variant="default" disabled={loading}>
