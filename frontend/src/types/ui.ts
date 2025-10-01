@@ -24,6 +24,7 @@ interface UserDataContextType {
 	loginUser: ({ email, password }: Omit<User, "name">) => User;
 	registerUser: ({ name, email, password }: User) => Omit<User, "password">;
 	hydrated: boolean;
+	editProfile: (userSettings: Partial<User>) => Omit<User, "password">
 }
 
 interface ChildrenProps {

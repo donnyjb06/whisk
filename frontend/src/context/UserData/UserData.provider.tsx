@@ -20,7 +20,7 @@ const UserDataProvider = ({ children }: ChildrenProps) => {
 	}, []);
 
 	useEffect(() => {
-		const userDetails = localStorage.getItem("user")
+		const userDetails = localStorage.getItem("user");
 		const pantry = localStorage.getItem("pantry") ?? "[]";
 		setHydrated(true);
 		if (!userDetails) return;
@@ -56,9 +56,36 @@ const UserDataProvider = ({ children }: ChildrenProps) => {
 		return { name, email };
 	};
 
+	const editProfile = (userSettings: Partial<User>) => {
+		const filteredSettingsArr = Object.entries(userSettings).filter(
+			([, value]) => value.trim() !== ""
+		);
+
+		const filteredSettings = Object.fromEntries(filteredSettingsArr);
+		const userData = JSON.stringify({
+			...currentUser,
+			...filteredSettings,
+		});
+
+		localStorage.setItem("user", userData);
+		setCurrentUser(
+			(prevUser) => ({ ...prevUser, ...filteredSettings } as User)
+		);
+
+		return JSON.parse(userData);
+	};
+
+
 	return (
 		<UserDataContext.Provider
-			value={{ currentUser, pantry, loginUser, registerUser, hydrated }}
+			value={{
+				currentUser,
+				pantry,
+				loginUser,
+				registerUser,
+				hydrated,
+				editProfile,
+			}}
 		>
 			{children}
 		</UserDataContext.Provider>
