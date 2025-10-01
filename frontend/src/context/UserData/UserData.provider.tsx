@@ -62,8 +62,9 @@ const UserDataProvider = ({ children }: ChildrenProps) => {
 		);
 
 		const filteredSettings = Object.fromEntries(filteredSettingsArr);
+		const oldSettings = getUser();
 		const userData = JSON.stringify({
-			...currentUser,
+			...oldSettings,
 			...filteredSettings,
 		});
 
@@ -74,7 +75,6 @@ const UserDataProvider = ({ children }: ChildrenProps) => {
 
 		return JSON.parse(userData);
 	};
-
 
 	return (
 		<UserDataContext.Provider
