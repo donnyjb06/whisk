@@ -9,6 +9,7 @@ import RecipesProvider from "./context/Recipes/Recipes.provider";
 import RecipeModal from "./components/RecipeModal";
 import UserDataProvider from "./context/UserData/UserData.provider";
 import PageTransition from "./components/PageTransition";
+import LogOutConfirmationModal from "./components/LogOutConfirmationModal";
 
 function Layout() {
 	const location = useLocation();
@@ -22,6 +23,7 @@ function Layout() {
 					<ModeToggle className="lg:hidden" />
 					<UserDataProvider>
 						<AuthModal />
+						<LogOutConfirmationModal />
 						<NavBar />
 						<PageTransition
 							className="flex-1 mt-10 overflow-x-hidden"
