@@ -1,6 +1,7 @@
 import type { ChildrenProps, User } from "@/types/ui";
 import { UserDataContext } from "./UserData.context";
 import { useCallback, useEffect, useState } from "react";
+import { redirect } from "react-router";
 
 const UserDataProvider = ({ children }: ChildrenProps) => {
 	const [currentUser, setCurrentUser] = useState<Omit<User, "password"> | null>(
@@ -76,10 +77,17 @@ const UserDataProvider = ({ children }: ChildrenProps) => {
 		return JSON.parse(userData);
 	};
 
+	const logOutUser = () => {
+		localStorage.removeItem("user");
+		redirect("/");
+		setCurrentUser(null);
+	};
+
 	return (
 		<UserDataContext.Provider
 			value={{
 				currentUser,
+				logOutUser,
 				pantry,
 				loginUser,
 				registerUser,
