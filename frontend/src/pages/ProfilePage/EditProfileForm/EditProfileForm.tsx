@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/input";
+import { useModal } from "@/hooks/useModal";
 import { useUserData } from "@/hooks/useUserData";
 import { Label } from "@radix-ui/react-label";
 import { useState, type ChangeEvent, type FormEvent } from "react";
@@ -7,7 +8,7 @@ import { toast } from "sonner";
 
 const EditProfileForm = () => {
 	const { currentUser, editProfile } = useUserData();
-
+	const { setModalIsOpen } = useModal();
 	const [formValues, setFormValues] = useState<{
 		name: string;
 		email: string;
@@ -77,6 +78,13 @@ const EditProfileForm = () => {
 				</fieldset>
 				<Button variant="default" disabled={loading}>
 					Edit Profile
+				</Button>
+				<Button
+					onClick={() => setModalIsOpen("delete")}
+					type="button"
+					variant="destructive"
+				>
+					Log out
 				</Button>
 			</form>
 		</div>
