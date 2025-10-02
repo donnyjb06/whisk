@@ -77,6 +77,26 @@ const UserDataProvider = ({ children }: ChildrenProps) => {
 		return JSON.parse(userData);
 	};
 
+	const addIngredientToPantry = (ingredient: string) => {
+		if (
+			pantry.some(
+				(pantryIngredient) =>
+					pantryIngredient.trim().toLocaleLowerCase() ===
+					ingredient.trim().toLocaleLowerCase()
+			)
+		) {
+			throw new Error(
+				`${ingredient.trim()} already exists inside of your pantry`
+			);
+		}
+		setPantry((prevPantry) => {
+			const newPantry = [...prevPantry, ingredient.trim()];
+
+			localStorage.setItem("pantry", JSON.stringify(newPantry));
+			return newPantry;
+		});
+	};
+
 	const logOutUser = () => {
 		localStorage.removeItem("user");
 		redirect("/");
@@ -86,6 +106,7 @@ const UserDataProvider = ({ children }: ChildrenProps) => {
 	return (
 		<UserDataContext.Provider
 			value={{
+				addIngredientToPantry,
 				currentUser,
 				logOutUser,
 				pantry,
