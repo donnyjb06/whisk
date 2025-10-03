@@ -27,6 +27,7 @@ interface UserDataContextType {
 	editProfile: (userSettings: Partial<User>) => Omit<User, "password">
 	logOutUser: () => void;
 	addIngredientToPantry: (ingredient: string) => void;
+	deleteIngredient: (ingredient: string) => void;
 }
 
 interface ChildrenProps {

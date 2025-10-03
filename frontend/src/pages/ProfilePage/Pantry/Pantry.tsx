@@ -7,7 +7,7 @@ import { useState, type FormEvent } from "react";
 import { toast } from "sonner";
 
 const Pantry = () => {
-	const { pantry, addIngredientToPantry } = useUserData();
+	const { deleteIngredient, pantry, addIngredientToPantry } = useUserData();
 	const [newIngredient, setNewIngredient] = useState<string>("");
 	const [loading, setLoading] = useState<boolean>(false);
 
@@ -17,6 +17,7 @@ const Pantry = () => {
 
 		try {
 			addIngredientToPantry(newIngredient);
+			setNewIngredient("");
 		} catch (error) {
 			if (error instanceof Error) {
 				toast.error(error.message);
@@ -50,7 +51,11 @@ const Pantry = () => {
 						<div className="flex items-center border border-border py-2 px-4 gap-2 rounded-md">
 							<p className="buttontext capitalize">{ingredient}</p>
 
-							<button type="button" className="flex items-center group">
+							<button
+								type="button"
+								onClick={() => deleteIngredient(ingredient)}
+								className="flex items-center group"
+							>
 								<X className="w-[1.2rem] h-[1.2rem] group-hover:scale-115 transition-transform duration-200" />
 							</button>
 						</div>

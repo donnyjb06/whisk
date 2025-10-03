@@ -97,6 +97,15 @@ const UserDataProvider = ({ children }: ChildrenProps) => {
 		});
 	};
 
+	const deleteIngredient = (ingredient: string) => {
+		const newPantry = pantry.filter(
+			(prevIngredient) => prevIngredient !== ingredient
+		);
+		setPantry(newPantry);
+
+		localStorage.setItem("pantry", JSON.stringify(newPantry));
+	};
+
 	const logOutUser = () => {
 		localStorage.removeItem("user");
 		redirect("/");
@@ -107,6 +116,7 @@ const UserDataProvider = ({ children }: ChildrenProps) => {
 		<UserDataContext.Provider
 			value={{
 				addIngredientToPantry,
+				deleteIngredient,
 				currentUser,
 				logOutUser,
 				pantry,
