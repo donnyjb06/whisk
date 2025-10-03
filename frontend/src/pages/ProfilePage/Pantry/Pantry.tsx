@@ -48,10 +48,10 @@ const Pantry = () => {
 				<div className="flex flex-wrap gap-4">
 					{pantry.map((ingredient) => (
 						<div className="flex items-center border border-border py-2 px-4 gap-2 rounded-md">
-							<p>{ingredient}</p>
+							<p className="buttontext capitalize">{ingredient}</p>
 
 							<button type="button" className="flex items-center group">
-								<X className="w-[1.2rem] h-[1.2rem] group-hover:scale-105" />
+								<X className="w-[1.2rem] h-[1.2rem] group-hover:scale-115 transition-transform duration-200" />
 							</button>
 						</div>
 					))}
